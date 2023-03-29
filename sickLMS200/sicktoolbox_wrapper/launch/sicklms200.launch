@@ -1,0 +1,20 @@
+<!-- 
+This launch file shows how to start a SICK node. 
+You may have to change the port parameter.
+Sick is connected bia a FTDI USB Serial Converter
+-->
+
+<launch>
+
+  <node pkg="sicktoolbox_wrapper" exec="sicklms" name="sickLMS200" respawn="false" output="screen" launch-prefix="">
+    <param name="frame_id" value="sick_link" />
+    <param name="port" value="/dev/sensors/sickLMS200"/>
+    <param name="baud" value="9600"/>
+    <param name="inverted" value="false"/>    
+    <param name="angle" value="100"/>
+    <param name="resolution" value="0.5"/>
+    <param name="connect_delay" value="1"/>    #seconds
+    
+  </node>
+  
+</launch>

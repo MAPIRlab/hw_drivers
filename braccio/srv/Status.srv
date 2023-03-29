@@ -1,0 +1,3 @@
+---
+geometry_msgs/Point current_position
+float32[] current_joints
