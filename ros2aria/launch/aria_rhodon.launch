@@ -1,0 +1,15 @@
+<launch>
+
+  # ARIA NODE
+  <node pkg="ros2aria" exec="ros2aria" name="ros2aria" output="screen" launch-prefix="xterm -e">
+        
+    <param name="port" value="/dev/sensors/patrolbot"/>
+    <param name="serial_baud" value="115200"/>
+                
+    <param name="odom_frame" value="odom"/>
+    <param name="base_link_frame" value="base_link"/>
+    
+  </node>
+  
+
+</launch>
