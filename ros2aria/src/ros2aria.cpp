@@ -367,7 +367,13 @@ void Ros2AriaNode::publish()
   odom_broadcaster->sendTransform(odom_trans);
 
   // 3. Publish Battery
+  bat_msg.header.stamp = this->get_clock()->now();
+  bat_msg.header.frame_id = frame_id_base_link;
   bat_msg.voltage = robot->getRealBatteryVoltage();
+  bat_msg.percentage = robot->getStateOfCharge();
+  bat_msg.power_supply_status = int(robot->isChargerPowerGood());
+  bat_msg.temperature = float(robot->getTemperature());
+
   battery_pub->publish(bat_msg);
 }
 
