@@ -1,0 +1,3 @@
+[submodule "olfaction_drivers"]
+	path = olfaction_drivers
+	url = git@github.com:MAPIRlab/hw_drivers_olfaction.git
