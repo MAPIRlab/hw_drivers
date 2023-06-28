@@ -218,10 +218,15 @@ int main(int argc, char** argv)
 
         odom_frame_id = node->declare_parameter<std::string>("odom_frame_id", "odom");
 
-        head_frame_id = node->declare_parameter<std::string>("head_frame_id","/giraff_head");
+        head_frame_id = node->declare_parameter<std::string>("head_frame_id","giraff_head");
 
-        stalk_frame_id = node->declare_parameter<std::string>("stalk_frame_id","/giraff_stalk");
+        stalk_frame_id = node->declare_parameter<std::string>("stalk_frame_id","giraff_stalk");
+        
+        std::string base_footprint_frame_id = node->declare_parameter<std::string>("base_footprint_frame_id", "giraff_base_footprint");
+        std::string camera_frame_id = node->declare_parameter<std::string>("camera_frame_id", "giraff_camera");
+        std::string laser_frame_id = node->declare_parameter<std::string>("laser_frame_id", "giraff_laser_frame");
 
+        
 
         double max_lv, max_av, acc_lin, acc_ang, vgr;
         int controller_mode;
@@ -273,7 +278,7 @@ int main(int argc, char** argv)
         //cmd_vel_avr_pub_ptr = &cmd_vel_avr_pub; //Global pointer
 
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"[Giraff_ros_driver] Initializing Subscribers...");
-        rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub = node->create_subscription<geometry_msgs::msg::Twist>("/cmd_vel",1, std::bind(&cmdVelReceived, std::placeholders::_1));
+        rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub = node->create_subscription<geometry_msgs::msg::Twist>("cmd_vel",1, std::bind(&cmdVelReceived, std::placeholders::_1));
 
         // Services
         //----------------
@@ -361,7 +366,7 @@ int main(int argc, char** argv)
                 geometry_msgs::msg::TransformStamped odom_trans;
                 odom_trans.header.stamp = current_time;
                 odom_trans.header.frame_id = odom_frame_id;
-                odom_trans.child_frame_id = "base_footprint";
+                odom_trans.child_frame_id = base_footprint_frame_id;
                 odom_trans.transform.translation.x = pos_x;
                 odom_trans.transform.translation.y = pos_y;
                 odom_trans.transform.translation.z = 0.0;
@@ -375,7 +380,7 @@ int main(int argc, char** argv)
                 //Publish TF (\base_footprint -> \base_link)
                 geometry_msgs::msg::TransformStamped footprint_trans;
                 footprint_trans.header.stamp = current_time;
-                footprint_trans.header.frame_id = "base_footprint";
+                footprint_trans.header.frame_id = base_footprint_frame_id;
                 footprint_trans.child_frame_id = base_frame_id;
                 footprint_trans.transform.translation.x = 0.0;
                 footprint_trans.transform.translation.y = 0.0;
@@ -389,7 +394,7 @@ int main(int argc, char** argv)
                 geometry_msgs::msg::TransformStamped laser_trans;
                 laser_trans.header.stamp = current_time;
                 laser_trans.header.frame_id = base_frame_id;
-                laser_trans.child_frame_id = "laser_frame";
+                laser_trans.child_frame_id = laser_frame_id;
                 laser_trans.transform.translation.x = 0.2;
                 laser_trans.transform.translation.y = 0.0;
                 laser_trans.transform.translation.z = 0.0;
@@ -400,8 +405,8 @@ int main(int argc, char** argv)
                 //Publish TF (\head -> \camera)
                 geometry_msgs::msg::TransformStamped camera_trans;
                 camera_trans.header.stamp = current_time;
-                camera_trans.header.frame_id = "head";
-                camera_trans.child_frame_id = "camera";
+                camera_trans.header.frame_id = head_frame_id;
+                camera_trans.child_frame_id = camera_frame_id;
                 camera_trans.transform.translation.x = 0.0;
                 camera_trans.transform.translation.y = 0.0;
                 camera_trans.transform.translation.z = 0.0;
