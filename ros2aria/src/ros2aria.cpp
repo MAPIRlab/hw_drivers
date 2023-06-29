@@ -78,10 +78,10 @@ Ros2AriaNode::Ros2AriaNode(): Node("ros2aria_node"),myPublishCB(this,&Ros2AriaNo
 {
 
   // Initialize ROS2 topic subs and pubs
-  cmdvel_sub=this->create_subscription<geometry_msgs::msg::Twist>("/cmd_vel",1,std::bind(&Ros2AriaNode::cmdvel_cb,this,_1));
+  cmdvel_sub=this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel",1,std::bind(&Ros2AriaNode::cmdvel_cb,this,_1));
 
-  pose_pub=this->create_publisher<nav_msgs::msg::Odometry>("/odom",1000);
-  battery_pub = this->create_publisher<sensor_msgs::msg::BatteryState>("/battery",1000);
+  pose_pub=this->create_publisher<nav_msgs::msg::Odometry>("odom",1000);
+  battery_pub = this->create_publisher<sensor_msgs::msg::BatteryState>("battery",1000);
 
   // Initialize clock
   veltime=this->get_clock()->now();
