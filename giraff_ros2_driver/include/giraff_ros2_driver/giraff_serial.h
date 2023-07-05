@@ -547,7 +547,7 @@ inline bool SerialInterface::open()
             attr.c_cflag |= CRTSCTS;
         else
             attr.c_cflag &= ~CRTSCTS;
-        attr.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+        attr.c_lflag &= ~(ICANON);
         attr.c_iflag = 0;
         attr.c_oflag = 0;
         attr.c_cc[VMIN]  = 0;
@@ -664,6 +664,19 @@ inline bool SerialInterface::write(const std::string& str)
 
 inline int SerialInterface::read(char* buffer, int buffer_size)
 {
+    fd_set readfds;
+    FD_ZERO (&readfds);
+    FD_SET (fd, &readfds);
+    timespec timeout_ts;
+        timeout_ts.tv_sec=10;
+        timeout_ts.tv_nsec=0;
+    
+    int r = pselect (fd + 1, &readfds, NULL, NULL, &timeout_ts, NULL);
+    if (r!=1)
+    {
+        RCLCPP_ERROR(rclcpp::get_logger("giraff_driver"), "TIMED OUT WAITING FOR RESPONSE FROM AVR. YOU MIGHT BE USING THE WRONG PORT.");
+        return -1;
+    }
     int bytes = ::read(fd,buffer,buffer_size);
 
     if (bytes==-1) {

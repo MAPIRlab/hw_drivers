@@ -21,6 +21,7 @@ include_directories(include)
 
 add_executable(giraff_node src/giraff_node.cpp)
 ament_target_dependencies(giraff_node rclcpp giraff_interfaces std_msgs sensor_msgs tf2 tf2_ros tf2_geometry_msgs)
+#target_compile_definitions(giraff_node PRIVATE -D_GIRAFF_AVR_DEBUG_)
 
 install(TARGETS
   giraff_node
