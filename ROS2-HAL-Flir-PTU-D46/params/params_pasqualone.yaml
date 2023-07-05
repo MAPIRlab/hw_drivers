@@ -2,7 +2,6 @@ hal_flir_d46:
   ros__parameters:
     port: /dev/ttyUSB0
     limits_enabled: True
-
     baud: 9600
     default_velocity: 0.1
     hz: 10

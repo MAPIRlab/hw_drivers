@@ -51,6 +51,7 @@ class FlirD46 : public rclcpp::Node
   ~FlirD46();  
 
   void disconnect();
+  void run();
 
  private:
   std::shared_ptr<flir_ptu_driver::PTU> m_pantilt = nullptr;

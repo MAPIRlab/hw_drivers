@@ -35,15 +35,14 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
     std::abort();
   }
   catch(...){
-
     RCLCPP_ERROR_STREAM(get_logger(), "Unable to open port " << port);
     std::abort();
   }
 
+  // Initialize
   RCLCPP_INFO_STREAM(get_logger(), "FLIR PTU serial port opened, now initializing.");
 
   try{
-    
     m_pantilt = std::make_shared<flir_ptu_driver::PTU>(m_ser);
     if (!m_pantilt->initialize()){
       RCLCPP_ERROR_STREAM(get_logger(), "Could not initialize FLIR PTU on " << port);
@@ -62,6 +61,7 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
 
   RCLCPP_INFO_STREAM(get_logger(), "FLIR PTU initialized.");
 
+  // Params
   tilt_min = declare_parameter("limits.min_tilt", m_pantilt->getMin(PTU_TILT));
   tilt_max = declare_parameter("limits.max_tilt", m_pantilt->getMax(PTU_TILT));
   tilt_speed_min = declare_parameter("limits.min_tilt_speed", m_pantilt->getMinSpeed(PTU_TILT));
@@ -75,7 +75,7 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
   min_threshold_to_move_pan = declare_parameter("min_thresold_command_input_pan", 0.001);
   min_threshold_to_move_tilt = declare_parameter("min_thresold_command_input_tilt", 0.001);
   hz = declare_parameter("hz", PTU_DEFAULT_HZ);
-
+  
   std::string ptu_state_publisher = declare_parameter<std::string>("publishers.state", "/ptu/state");
   std::string set_pan_srv_name = declare_parameter<std::string>("services.set_pan", "/ptu/set_pan");
   std::string set_tilt_srv_name = declare_parameter<std::string>("services.set_tilt", "/ptu/set_tilt");
@@ -87,7 +87,10 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
   std::string set_tilt_action_name = declare_parameter<std::string>("actions.set_tilt", "/ptu/set_tilt");
   std::string set_pantilt_action_name = declare_parameter<std::string>("actions.set_pantilt", "/ptu/set_pan_tilt");
 
+  // Publishers 
   ptu_state_pub = create_publisher<ptu_interfaces::msg::PTU>(ptu_state_publisher, 1);
+
+  // Services
   set_pan_srv = create_service<ptu_interfaces::srv::SetPan>(set_pan_srv_name, std::bind(&FlirD46::set_pan_callback, this, ph::_1, ph::_2));    
   set_tilt_srv = create_service<ptu_interfaces::srv::SetTilt>(set_tilt_srv_name, std::bind(&FlirD46::set_tilt_callback, this, ph::_1, ph::_2));    
   set_pantilt_srv = create_service<ptu_interfaces::srv::SetPanTilt>(set_pantilt_srv_name, std::bind(&FlirD46::set_pantilt_callback, this, ph::_1, ph::_2));    
@@ -95,6 +98,7 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
   reset_srv = create_service<std_srvs::srv::Empty>(set_reset_srv_name, std::bind(&FlirD46::resetCallback, this, ph::_1, ph::_2));
   get_limits_srv = create_service<ptu_interfaces::srv::GetLimits>(set_get_limits_srv_name, std::bind(&FlirD46::get_limits_callback, this, ph::_1, ph::_2));
 
+  // Actions
   action_server_set_pan = rclcpp_action::create_server<SetPanAction>(
     this,
     set_pan_action_name,
@@ -118,7 +122,8 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
     std::bind(&FlirD46::handle_cancel_pantilt, this, ph::_1),
     std::bind(&FlirD46::handle_accepted_pantilt, this, ph::_1));
 
-  timer_ = this->create_wall_timer(1000ms / hz, std::bind(&FlirD46::spinCallback, this));
+  // Removed
+  //timer_ = this->create_wall_timer(1000ms / hz, std::bind(&FlirD46::spinCallback, this));
 }
 
 FlirD46::~FlirD46(){
@@ -525,16 +530,39 @@ void FlirD46::execute_pantilt_action(const std::shared_ptr<GoalHandlePanTiltActi
   if (rclcpp::ok()) {
     result->ret = true;
     goal_handle->succeed(result);
-  }
+  }  
+}
+
+void FlirD46::run()
+{
+    rclcpp::Rate rate(hz);
+    
+    auto shared_this = shared_from_this();
+    
+    while(rclcpp::ok())
+    {
+        // callbacks?
+        rclcpp::spin_some(shared_this);
+
+        // publish status      
+        spinCallback();
+        
+        rate.sleep();
+    }
+
+    disconnect();
 }
 
 } // namespace hal
 
+
+ // ============================================================ //
+ // ============================================================ //
 int main( int argc, char** argv)
 {
     rclcpp::init(argc, argv);
     std::shared_ptr<hal::FlirD46> ptu = std::make_shared<hal::FlirD46>();
 
-    //ptu->run();
+    ptu->run();
     return 0;
 }
