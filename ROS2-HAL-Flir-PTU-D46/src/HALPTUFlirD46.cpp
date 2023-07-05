@@ -89,6 +89,7 @@ FlirD46::FlirD46() : Node("hal_flir_d46")
 
   // Publishers 
   ptu_state_pub = create_publisher<ptu_interfaces::msg::PTU>(ptu_state_publisher, 1);
+  m_joint_pub = create_publisher<sensor_msgs::msg::JointState>("joint_states", 1);
 
   // Services
   set_pan_srv = create_service<ptu_interfaces::srv::SetPan>(set_pan_srv_name, std::bind(&FlirD46::set_pan_callback, this, ph::_1, ph::_2));    
@@ -253,6 +254,20 @@ void FlirD46::spinCallback(){
   ptu_msg.pan_speed = panspeed;
   ptu_msg.tilt_speed = tiltspeed;
   ptu_state_pub->publish(ptu_msg);
+
+  // Publish Position & Speed (robot_state_publisher -> tf2)
+  sensor_msgs::msg::JointState joint_state;
+  joint_state.header.stamp = now();
+  joint_state.name.resize(2);
+  joint_state.position.resize(2);
+  joint_state.velocity.resize(2);
+  joint_state.name[0] = "ptu_pan";
+  joint_state.position[0] = pan;
+  joint_state.velocity[0] = panspeed;
+  joint_state.name[1] = "ptu_tilt";
+  joint_state.position[1] = tilt;
+  joint_state.velocity[1] = tiltspeed;
+  m_joint_pub->publish(joint_state);
 }
 
 

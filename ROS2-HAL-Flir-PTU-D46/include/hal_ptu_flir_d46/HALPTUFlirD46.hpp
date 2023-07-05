@@ -11,6 +11,7 @@
 //#include "rclcpp_components/register_node_macro.hpp"
 
 #include <std_msgs/msg/bool.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
 #include <std_srvs/srv/empty.hpp>
 
 #include "ptu_interfaces/msg/ptu.hpp"
@@ -65,6 +66,7 @@ class FlirD46 : public rclcpp::Node
   int hz;
 
   rclcpp::Publisher<ptu_interfaces::msg::PTU>::SharedPtr ptu_state_pub;
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr m_joint_pub;
 
   rclcpp::Service<ptu_interfaces::srv::SetPan>::SharedPtr set_pan_srv;
   rclcpp::Service<ptu_interfaces::srv::SetTilt>::SharedPtr set_tilt_srv;
