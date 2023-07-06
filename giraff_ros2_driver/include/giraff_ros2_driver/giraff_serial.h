@@ -547,7 +547,7 @@ inline bool SerialInterface::open()
             attr.c_cflag |= CRTSCTS;
         else
             attr.c_cflag &= ~CRTSCTS;
-        attr.c_lflag &= ~(ICANON);
+        attr.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
         attr.c_iflag = 0;
         attr.c_oflag = 0;
         attr.c_cc[VMIN]  = 0;
