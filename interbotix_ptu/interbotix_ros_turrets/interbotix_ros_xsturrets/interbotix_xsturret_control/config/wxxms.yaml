@@ -1,4 +1,4 @@
-port: /dev/ttyDXL
+port: /dev/ttyUSB0
 
 joint_order: [pan, tilt]
 sleep_positions: [0, 0]

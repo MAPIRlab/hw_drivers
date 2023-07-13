@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>interbotix_xsturret_control</name>
   <version>0.0.0</version>
   <description>The interbotix_xsturret_control package</description>
@@ -10,7 +10,9 @@
 
   <!-- The *depend tags are used to specify dependencies -->
   <!-- Dependencies can be catkin packages or system dependencies -->
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>ros2launch</exec_depend>
+
   <build_depend>interbotix_xs_sdk</build_depend>
   <build_depend>interbotix_xs_modules</build_depend>
   <build_depend>interbotix_xsturret_descriptions</build_depend>
@@ -21,9 +23,10 @@
   <exec_depend>interbotix_xs_modules</exec_depend>
   <exec_depend>interbotix_xsturret_descriptions</exec_depend>
 
-  <!-- The export tag contains other, unspecified, tags -->
-  <export>
-    <!-- Other tools can request additional information be placed here -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
 
+  <export>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
