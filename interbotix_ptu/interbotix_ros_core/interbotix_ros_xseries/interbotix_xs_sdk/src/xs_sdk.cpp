@@ -36,9 +36,17 @@ int main(int argc, char ** argv)
   bool success = true;
   auto node = std::make_shared<interbotix_xs::InterbotixRobotXS>(success);
   if (success) {
-    rclcpp::executors::MultiThreadedExecutor exec;
-    exec.add_node(node);
-    exec.spin();
+     RCLCPP_INFO(interbotix_xs::LOGGER, "Setting node in thread and calling Spin()...");
+    //rclcpp::executors::MultiThreadedExecutor exec;
+    //exec.add_node(node);
+    //exec.spin();
+    rclcpp::Rate loop_rate(10.0);
+    while (rclcpp::ok())
+    {
+        rclcpp::spin_some(node);        //Check for new msgs (callbacks)
+        loop_rate.sleep();
+    }
+
   } else {
     RCLCPP_FATAL(
       interbotix_xs::LOGGER,
