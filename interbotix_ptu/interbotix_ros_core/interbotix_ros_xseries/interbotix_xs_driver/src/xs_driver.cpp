@@ -817,6 +817,11 @@ bool InterbotixDriverXS::retrieve_motor_configs(
 
   // use specified or default port
   port = motor_configs["port"].as<std::string>(DEFAULT_PORT);
+  XSLOG_INFO( "Loaded port '%s' from '%s'.", port.c_str(), filepath_motor_configs.c_str());
+  YAML::Emitter emitter;
+  emitter << motor_configs;
+  XSLOG_INFO("motor_configs is: %s", emitter.c_str());
+
   if (mode_configs["port"]) {
     port = mode_configs["port"].as<std::string>(DEFAULT_PORT);
   }
