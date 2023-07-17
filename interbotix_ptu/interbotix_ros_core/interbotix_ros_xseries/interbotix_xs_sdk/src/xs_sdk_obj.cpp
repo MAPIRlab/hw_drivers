@@ -167,13 +167,13 @@ void InterbotixRobotXS::robot_wait_for_joint_states()
 
 void InterbotixRobotXS::robot_sub_command_group(const JointGroupCommand::SharedPtr msg)
 {
-  RCLCPP_INFO(LOGGER, "New Group command received... procesing.");
+  //RCLCPP_INFO(LOGGER, "New Group command received... procesing.");
   xs_driver->write_commands(msg->name, msg->cmd);
 }
 
 void InterbotixRobotXS::robot_sub_command_single(const JointSingleCommand::SharedPtr msg)
 {
-  RCLCPP_INFO(LOGGER, "New Single command received... procesing.[name: %s, cmd: %.2f]", msg->name.c_str(), msg->cmd);
+  //RCLCPP_INFO(LOGGER, "New Single command received... procesing.[name: %s, cmd: %.2f]", msg->name.c_str(), msg->cmd);
   xs_driver->write_joint_command(msg->name, msg->cmd);
 }
 
