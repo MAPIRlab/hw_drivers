@@ -50,8 +50,8 @@ class Ros2AriaNode : public rclcpp::Node
     std::string serial_port;
     int serial_baud;
 
-    ArRobotConnector *conn;
-    ArRobot *robot;
+    std::unique_ptr<ArRobotConnector> conn;
+    std::unique_ptr<ArRobot> robot;
     ArPose pos;
     ArFunctorC<Ros2AriaNode> myPublishCB;
 
@@ -144,12 +144,9 @@ int Ros2AriaNode::Setup()
 ////////
 
 
-  // Note, various objects are allocated here which are never deleted (freed), since Setup() is only supposed to be
-  // called once per instance, and these objects need to persist until the process terminates.
-
-  robot = new ArRobot();
-  ArArgumentBuilder *args = new ArArgumentBuilder(); //  never freed
-  ArArgumentParser *argparser = new ArArgumentParser(args); // Warning never freed
+  robot = std::make_unique<ArRobot>();
+  static std::unique_ptr<ArArgumentBuilder> args = std::make_unique<ArArgumentBuilder>(); 
+  static std::unique_ptr<ArArgumentParser> argparser = std::make_unique<ArArgumentParser>(args.get());
   argparser->loadDefaultArguments(); // adds any arguments given in /etc/Aria.args.  Useful on robots with unusual serial port or baud rate (e.g. pioneer lx)
 
   // Now add any parameters given via ros params (see RosAriaNode constructor):
@@ -189,7 +186,7 @@ int Ros2AriaNode::Setup()
 
 */
   // Connect to the robot
-  conn = new ArRobotConnector(argparser, robot); // warning never freed
+  conn = std::make_unique<ArRobotConnector>(argparser.get(), robot.get());
   if (!conn->connectRobot()) {
     RCLCPP_ERROR(this->get_logger(),"RosAria: ARIA could not connect to robot! (Check ~port parameter is correct, and permissions on port device, or any errors reported above)");
     return 1;
@@ -258,7 +255,6 @@ int Ros2AriaNode::Setup()
 
   dynamic_reconfigure_server->setCallback(boost::bind(&RosAriaNode::dynamic_reconfigureCB, this, _1, _2));
 */
-
   // Enable the motors
   robot->enableMotors();
 
@@ -319,6 +315,8 @@ int Ros2AriaNode::Setup()
       100ms, std::bind(&Ros2AriaNode::cmdvel_watchdog, this));
 
   RCLCPP_INFO(this->get_logger(),"ros2aria: Setup complete");
+  robot->setAbsoluteMaxTransNegVel(-2000);  
+  robot->setTransNegVelMax(-2000);
   return 0;
 }
 
@@ -434,5 +432,6 @@ int main(int argc, char** argv)
     // sleep
     loop_rate.sleep();
   }
+  Aria::exit(0);
   return 0;
 }
