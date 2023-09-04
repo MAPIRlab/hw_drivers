@@ -3,7 +3,7 @@
 
 /*!
   \file
-  \brief ƒVƒŠƒAƒ‹’ÊM
+  \brief ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊM
 
   \author Satofumi KAMIMURA
 
@@ -28,61 +28,61 @@ extern "C" {
 #include "urg_ring_buffer.h"
 
 
-enum {
-    RING_BUFFER_SIZE_SHIFT = 7,
-    RING_BUFFER_SIZE = 1 << RING_BUFFER_SIZE_SHIFT,
+    enum {
+        RING_BUFFER_SIZE_SHIFT = 7,
+        RING_BUFFER_SIZE = 1 << RING_BUFFER_SIZE_SHIFT,
 
-    ERROR_MESSAGE_SIZE = 256,
-};
+        ERROR_MESSAGE_SIZE = 256,
+    };
 
 
-//! ƒVƒŠƒAƒ‹’ÊM—p
-typedef struct
-{
+    //! ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊMï¿½p
+    typedef struct
+    {
 #if defined(URG_WINDOWS_OS)
-    HANDLE hCom;                /*!< Ú‘±ƒŠƒ\[ƒX */
-    int current_timeout;        /*!< ƒ^ƒCƒ€ƒAƒEƒg‚Ìİ’èŠÔ [msec] */
+        HANDLE hCom;                /*!< ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½\ï¿½[ï¿½X */
+        int current_timeout;        /*!< ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½Ìİ’èï¿½ï¿½ [msec] */
 #else
-    int fd;                     /*!< ƒtƒ@ƒCƒ‹ƒfƒBƒXƒNƒŠƒvƒ^*/
-    struct termios sio;         /*!< ’ÊMİ’è */
+        int fd;                     /*!< ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½fï¿½Bï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½^*/
+        struct termios sio;         /*!< ï¿½ÊMï¿½İ’ï¿½ */
 #endif
 
-    ring_buffer_t ring;         /*!< ƒŠƒ“ƒOƒoƒbƒtƒ@ */
-    char buffer[RING_BUFFER_SIZE]; /*!< ƒoƒbƒtƒ@—Ìˆæ */
-    char has_last_ch;          /*!< ‘‚«–ß‚µ‚½•¶š‚ª‚ ‚é‚©‚Ìƒtƒ‰ƒO */
-    char last_ch;              /*!< ‘‚«–ß‚µ‚½‚P•¶š */
-} urg_serial_t;
+        ring_buffer_t ring;         /*!< ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ */
+        char buffer[RING_BUFFER_SIZE]; /*!< ï¿½oï¿½bï¿½tï¿½@ï¿½Ìˆï¿½ */
+        char has_last_ch;          /*!< ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ìƒtï¿½ï¿½ï¿½O */
+        char last_ch;              /*!< ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½ï¿½ï¿½ï¿½Pï¿½ï¿½ï¿½ï¿½ */
+    } urg_serial_t;
 
 
-//! Ú‘±‚ğŠJ‚­
-extern int serial_open(urg_serial_t *serial, const char *device, long baudrate);
+    //! ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
+    extern int serial_open(urg_serial_t* serial, const char* device, long baudrate);
 
 
-//! Ú‘±‚ğ•Â‚¶‚é
-extern void serial_close(urg_serial_t *serial);
+    //! ï¿½Ú‘ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½
+    extern void serial_close(urg_serial_t* serial);
 
 
-//! ƒ{[ƒŒ[ƒg‚ğİ’è‚·‚é
-extern int serial_set_baudrate(urg_serial_t *serial, long baudrate);
+    //! ï¿½{ï¿½[ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½İ’è‚·ï¿½ï¿½
+    extern int serial_set_baudrate(urg_serial_t* serial, long baudrate);
 
 
-//! ƒf[ƒ^‚ğ‘—M‚·‚é
-extern int serial_write(urg_serial_t *serial, const char *data, int size);
+    //! ï¿½fï¿½[ï¿½^ï¿½ğ‘—Mï¿½ï¿½ï¿½ï¿½
+    extern int serial_write(urg_serial_t* serial, const char* data, int size);
 
 
-//! ƒf[ƒ^‚ğóM‚·‚é
-extern int serial_read(urg_serial_t *serial,
-                       char *data, int max_size, int timeout);
+    //! ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½
+    extern int serial_read(urg_serial_t* serial,
+        char* data, int max_size, int timeout);
 
 
-//! ‰üs‚Ü‚Å‚Ìƒf[ƒ^‚ğóM‚·‚é
-extern int serial_readline(urg_serial_t *serial,
-                           char *data, int max_size, int timeout);
+    //! ï¿½ï¿½ï¿½sï¿½Ü‚Å‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½
+    extern int serial_readline(urg_serial_t* serial,
+        char* data, int max_size, int timeout);
 
 
-//! ƒGƒ‰[•¶š—ñ‚ğŠi”[‚µ‚Ä•Ô‚·
-extern int serial_error(urg_serial_t *serial,
-                        char *error_message, int max_size);
+    //! ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½Ä•Ô‚ï¿½
+    extern int serial_error(urg_serial_t* serial,
+        char* error_message, int max_size);
 
 #ifdef __cplusplus
 }

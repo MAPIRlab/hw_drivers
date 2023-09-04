@@ -3,7 +3,7 @@
 
 /*!
   \file
-  \brief OS ‚ÌŒŸo
+  \brief OS ï¿½ÌŒï¿½ï¿½o
 
   \author Satofumi KAMIMURA
 
@@ -21,7 +21,7 @@
 #define URG_LINUX_OS
 
 #else
-// ŒŸo‚Å‚«‚È‚¢‚Æ‚«‚ðAMac ˆµ‚¢‚É‚µ‚Ä‚µ‚Ü‚¤
+// ï¿½ï¿½ï¿½oï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½AMac ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½
 #define URG_MAC_OS
 #endif
 

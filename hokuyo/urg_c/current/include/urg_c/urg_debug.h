@@ -8,7 +8,7 @@
   \author Satofumi KAMIMURA
 
   \~japanese
-  \attention g‚¤•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
+  \attention ï¿½gï¿½ï¿½ï¿½Kï¿½vï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B
 
   \~english
   \attention Don't need to use these functions.
@@ -23,17 +23,17 @@ extern "C" {
 #include "urg_c/urg_sensor.h"
 
 
-    /*! \~japanese ƒZƒ“ƒT‚Éƒf[ƒ^‚ğ’¼Ú‘—M‚·‚é */
-    extern int urg_raw_write(urg_t *urg, const char *data, int data_size);
+    /*! \~japanese ï¿½Zï¿½ï¿½ï¿½Tï¿½Éƒfï¿½[ï¿½^ï¿½ğ’¼Ú‘ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_raw_write(urg_t* urg, const char* data, int data_size);
 
 
-    /*! \~japanese ƒZƒ“ƒT‚©‚çƒf[ƒ^‚ğ’¼ÚóM‚·‚é */
-    extern int urg_raw_read(urg_t *urg, char *data, int max_data_size,
-                            int timeout);
+    /*! \~japanese ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ğ’¼Úï¿½Mï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_raw_read(urg_t* urg, char* data, int max_data_size,
+        int timeout);
 
-    /*! \~japanese ƒZƒ“ƒT‚©‚ç‰üs‚Ü‚Å‚Ìƒf[ƒ^‚ğ’¼ÚóM‚·‚é */
-    extern int urg_raw_readline(urg_t *urg,char *data, int max_data_size,
-                                int timeout);
+    /*! \~japanese ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Ü‚Å‚Ìƒfï¿½[ï¿½^ï¿½ğ’¼Úï¿½Mï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_raw_readline(urg_t* urg, char* data, int max_data_size,
+        int timeout);
 
 #ifdef __cplusplus
 }

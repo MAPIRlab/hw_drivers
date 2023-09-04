@@ -39,17 +39,17 @@
 extern "C" {
 #endif
 
- #include <time.h>
-   #include <sys/time.h>
+#include <time.h>
+#include <sys/time.h>
 #ifdef WIN32
-  #include <sys/timeb.h>
+#include <sys/timeb.h>
 #else
-  #include <sys/time.h>
+#include <sys/time.h>
 #endif
 
-  #define HAS_CLOCK_GETTIME (_POSIX_C_SOURCE >= 199309L)
+#define HAS_CLOCK_GETTIME (_POSIX_C_SOURCE >= 199309L)
 
-  extern void urg_get_walltime(unsigned long long *nsecs);
+    extern void urg_get_walltime(unsigned long long* nsecs);
 
 #ifdef __cplusplus
 }

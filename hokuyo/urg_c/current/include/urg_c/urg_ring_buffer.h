@@ -3,7 +3,7 @@
 
 /*!
   \file
-  \brief ƒŠƒ“ƒOƒoƒbƒtƒ@
+  \brief ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@
 
   \author Satofumi KAMIMURA
 
@@ -11,72 +11,72 @@
 */
 
 
-//! ƒŠƒ“ƒOƒoƒbƒtƒ@‚ÌŠÇ—î•ñ
+//! ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½ÌŠÇ—ï¿½ï¿½ï¿½ï¿½
 typedef struct
 {
-    char *buffer;                 //!< ƒoƒbƒtƒ@‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    int buffer_size;              //!< ƒoƒbƒtƒ@ƒTƒCƒY
-    int first;                    //!< ƒoƒbƒtƒ@‚Ìæ“ªˆÊ’u
-    int last;                     //!< ƒoƒbƒtƒ@‚ÌÅIˆÊ’u
+    char* buffer;                 //!< ï¿½oï¿½bï¿½tï¿½@ï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+    int buffer_size;              //!< ï¿½oï¿½bï¿½tï¿½@ï¿½Tï¿½Cï¿½Y
+    int first;                    //!< ï¿½oï¿½bï¿½tï¿½@ï¿½Ìæ“ªï¿½Ê’u
+    int last;                     //!< ï¿½oï¿½bï¿½tï¿½@ï¿½ÌÅIï¿½Ê’u
 } ring_buffer_t;
 
 
 /*!
-  \brief ‰Šú‰»
+  \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
-  \param[in] buffer Š„‚è“–‚Ä‚éƒoƒbƒtƒ@
-  \param[in] shift_length ƒoƒbƒtƒ@ƒTƒCƒY‚Ì 2 ‚Ìæ”
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
+  \param[in] buffer ï¿½ï¿½ï¿½è“–ï¿½Ä‚ï¿½oï¿½bï¿½tï¿½@
+  \param[in] shift_length ï¿½oï¿½bï¿½tï¿½@ï¿½Tï¿½Cï¿½Yï¿½ï¿½ 2 ï¿½Ìæ”
 */
-extern void ring_initialize(ring_buffer_t *ring,
-                            char *buffer, const int shift_length);
+extern void ring_initialize(ring_buffer_t* ring,
+    char* buffer, const int shift_length);
 
 
 /*!
-  \brief ƒŠƒ“ƒOƒoƒbƒtƒ@‚ÌƒNƒŠƒA
+  \brief ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒNï¿½ï¿½ï¿½A
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
 */
-extern void ring_clear(ring_buffer_t *ring);
+extern void ring_clear(ring_buffer_t* ring);
 
 
 /*!
-  \brief Ši”[ƒf[ƒ^”‚ğ•Ô‚·
+  \brief ï¿½iï¿½[ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
 */
-extern int ring_size(const ring_buffer_t *ring);
+extern int ring_size(const ring_buffer_t* ring);
 
 
 /*!
-  \brief Å‘å‚ÌŠi”[ƒf[ƒ^”‚ğ•Ô‚·
+  \brief ï¿½Å‘ï¿½ÌŠiï¿½[ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
 */
-extern int ring_capacity(const ring_buffer_t *ring);
+extern int ring_capacity(const ring_buffer_t* ring);
 
 
 /*!
-  \brief ƒf[ƒ^‚ÌŠi”[
+  \brief ï¿½fï¿½[ï¿½^ï¿½ÌŠiï¿½[
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
-  \param[in] data ƒf[ƒ^
-  \param[in] size ƒf[ƒ^ƒTƒCƒY
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
+  \param[in] data ï¿½fï¿½[ï¿½^
+  \param[in] size ï¿½fï¿½[ï¿½^ï¿½Tï¿½Cï¿½Y
 
-  \return Ši”[‚µ‚½ƒf[ƒ^”
+  \return ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½
 */
-extern int ring_write(ring_buffer_t *ring, const char *data, int size);
+extern int ring_write(ring_buffer_t* ring, const char* data, int size);
 
 
 /*!
-  \brief ƒf[ƒ^‚Ìæ‚èo‚µ
+  \brief ï¿½fï¿½[ï¿½^ï¿½Ìï¿½ï¿½oï¿½ï¿½
 
-  \param[in] ring ƒŠƒ“ƒOƒoƒbƒtƒ@‚Ì\‘¢‘Ì
-  \param[out] buffer ƒf[ƒ^
-  \param[in] size Å‘å‚Ìƒf[ƒ^ƒTƒCƒY
+  \param[in] ring ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½oï¿½bï¿½tï¿½@ï¿½Ì\ï¿½ï¿½ï¿½ï¿½
+  \param[out] buffer ï¿½fï¿½[ï¿½^
+  \param[in] size ï¿½Å‘ï¿½Ìƒfï¿½[ï¿½^ï¿½Tï¿½Cï¿½Y
 
-  \return æ‚èo‚µ‚½ƒf[ƒ^”
+  \return ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½
 */
-extern int ring_read(ring_buffer_t *ring, char *buffer, int size);
+extern int ring_read(ring_buffer_t* ring, char* buffer, int size);
 
 #endif /* ! RING_BUFFER_H */

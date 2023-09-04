@@ -3,7 +3,7 @@
 
 /*!
   \file
-  \brief ’ÊM‚Ìˆ—
+  \brief ï¿½ÊMï¿½Ìï¿½ï¿½ï¿½
 
   \author Satofumi KAMIMURA
 
@@ -18,176 +18,176 @@ extern "C" {
 #include "urg_c/urg_tcpclient.h"
 
 
-/*!
-  \brief ’è”’è‹`
-*/
-enum {
-    URG_CONNECTION_TIMEOUT = -1, //!< ƒ^ƒCƒ€ƒAƒEƒg‚ª”­¶‚µ‚½‚Æ‚«‚Ì–ß‚è’l
-};
+    /*!
+      \brief ï¿½è”ï¿½ï¿½`
+    */
+    enum {
+        URG_CONNECTION_TIMEOUT = -1, //!< ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ì–ß‚ï¿½l
+    };
 
 
-/*!
-  \brief ’ÊMƒ^ƒCƒv
-*/
-typedef enum {
-    URG_SERIAL,                 //!< ƒVƒŠƒAƒ‹, USB Ú‘±
-    URG_ETHERNET,               //!< ƒC[ƒT[ƒlƒbƒgÚ‘±
-} urg_connection_type_t;
+    /*!
+      \brief ï¿½ÊMï¿½^ï¿½Cï¿½v
+    */
+    typedef enum {
+        URG_SERIAL,                 //!< ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½, USB ï¿½Ú‘ï¿½
+        URG_ETHERNET,               //!< ï¿½Cï¿½[ï¿½Tï¿½[ï¿½lï¿½bï¿½gï¿½Ú‘ï¿½
+    } urg_connection_type_t;
 
 
-/*!
-  \brief ’ÊMƒŠƒ\[ƒX
-*/
-typedef struct
-{
-    urg_connection_type_t type; //!< Ú‘±ƒ^ƒCƒv
-    urg_serial_t serial;        //!< ƒVƒŠƒAƒ‹Ú‘±
-    urg_tcpclient_t tcpclient;  //!< ƒC[ƒT[ƒlƒbƒgÚ‘±
-} urg_connection_t;
+    /*!
+      \brief ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+    */
+    typedef struct
+    {
+        urg_connection_type_t type; //!< ï¿½Ú‘ï¿½ï¿½^ï¿½Cï¿½v
+        urg_serial_t serial;        //!< ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ú‘ï¿½
+        urg_tcpclient_t tcpclient;  //!< ï¿½Cï¿½[ï¿½Tï¿½[ï¿½lï¿½bï¿½gï¿½Ú‘ï¿½
+    } urg_connection_t;
 
 
-/*!
-  \brief Ú‘±
+    /*!
+      \brief ï¿½Ú‘ï¿½
 
-  w’è‚³‚ê‚½ƒfƒoƒCƒX‚ÉÚ‘±‚·‚éB
+      ï¿½wï¿½è‚³ï¿½ê‚½ï¿½fï¿½oï¿½Cï¿½Xï¿½ÉÚ‘ï¿½ï¿½ï¿½ï¿½ï¿½B
 
-  \param[in,out] connection ’ÊMƒŠƒ\[ƒX
-  \param[in] connection_type Ú‘±ƒ^ƒCƒv
-  \param[in] device Ú‘±–¼
-  \param[in] baudrate_or_port ƒ{[ƒŒ[ƒg / ƒ|[ƒg”Ô†
+      \param[in,out] connection ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+      \param[in] connection_type ï¿½Ú‘ï¿½ï¿½^ï¿½Cï¿½v
+      \param[in] device ï¿½Ú‘ï¿½ï¿½ï¿½
+      \param[in] baudrate_or_port ï¿½{ï¿½[ï¿½ï¿½ï¿½[ï¿½g / ï¿½|ï¿½[ï¿½gï¿½Ôï¿½
 
-  \retval 0 ³í
-  \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-  connection_type ‚É‚Í
+      connection_type ï¿½É‚ï¿½
 
-  - URG_SERIAL ... ƒVƒŠƒAƒ‹’ÊM
-  - URG_ETHERNET .. ƒC[ƒT[ƒlƒbƒg’ÊM
+      - URG_SERIAL ... ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊM
+      - URG_ETHERNET .. ï¿½Cï¿½[ï¿½Tï¿½[ï¿½lï¿½bï¿½gï¿½ÊM
 
-  ‚ğw’è‚·‚éB
+      ï¿½ï¿½ï¿½wï¿½è‚·ï¿½ï¿½B
 
-  device, baudrate_or_port ‚Ìw’è‚Í connection_type ‚É‚æ‚èw’è‚Å‚«‚é’l‚ªˆÙ‚È‚éB
-  —á‚¦‚ÎAƒVƒŠƒAƒ‹’ÊM‚Ìê‡‚ÍˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+      device, baudrate_or_port ï¿½Ìwï¿½ï¿½ï¿½ connection_type ï¿½É‚ï¿½ï¿½wï¿½ï¿½Å‚ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½Ù‚È‚ï¿½B
+      ï¿½á‚¦ï¿½ÎAï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊMï¿½Ìê‡ï¿½ÍˆÈ‰ï¿½ï¿½Ì‚æ‚¤ï¿½É‚È‚ï¿½B
 
-  Example
-  \code
-  connection_t connection;
-  if (! connection_open(&connection, URG_SERIAL, "COM1", 115200)) {
-      return 1;
-  } \endcode
+      Example
+      \code
+      connection_t connection;
+      if (! connection_open(&connection, URG_SERIAL, "COM1", 115200)) {
+          return 1;
+      } \endcode
 
-  ‚Ü‚½AƒC[ƒT[ƒlƒbƒg’ÊM‚Ìê‡‚ÍˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+      ï¿½Ü‚ï¿½ï¿½Aï¿½Cï¿½[ï¿½Tï¿½[ï¿½lï¿½bï¿½gï¿½ÊMï¿½Ìê‡ï¿½ÍˆÈ‰ï¿½ï¿½Ì‚æ‚¤ï¿½É‚È‚ï¿½B
 
-  Example
-  \code
-  connection_t connection;
-  if (! connection_open(&connection, URG_ETHERNET, "192.168.0.10", 10940)) {
-      return 1;
-  } \endcode
+      Example
+      \code
+      connection_t connection;
+      if (! connection_open(&connection, URG_ETHERNET, "192.168.0.10", 10940)) {
+          return 1;
+      } \endcode
 
-  \see connection_close()
-*/
-extern int connection_open(urg_connection_t *connection,
-                           urg_connection_type_t connection_type,
-                           const char *device, long baudrate_or_port);
-
-
-/*!
-  \brief Ø’f
-
-  ƒfƒoƒCƒX‚Æ‚ÌÚ‘±‚ğØ’f‚·‚éB
-
-  \param[in,out] connection ’ÊMƒŠƒ\[ƒX
-
-  \code
-  connection_close(&connection); \endcode
-
-  \see connection_open()
-*/
-extern void connection_close(urg_connection_t *connection);
+      \see connection_close()
+    */
+    extern int connection_open(urg_connection_t* connection,
+        urg_connection_type_t connection_type,
+        const char* device, long baudrate_or_port);
 
 
-/*! ƒ{[ƒŒ[ƒg‚ğİ’è‚·‚é */
-extern int connection_set_baudrate(urg_connection_t *connection, long baudrate);
+    /*!
+      \brief ï¿½Ø’f
+
+      ï¿½fï¿½oï¿½Cï¿½Xï¿½Æ‚ÌÚ‘ï¿½ï¿½ï¿½Ø’fï¿½ï¿½ï¿½ï¿½B
+
+      \param[in,out] connection ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+
+      \code
+      connection_close(&connection); \endcode
+
+      \see connection_open()
+    */
+    extern void connection_close(urg_connection_t* connection);
 
 
-/*!
-  \brief ‘—M
-
-  ƒf[ƒ^‚ğ‘—M‚·‚éB
-
-  \param[in,out] connection ’ÊMƒŠƒ\[ƒX
-  \param[in] data ‘—Mƒf[ƒ^
-  \param[in] size ‘—MƒoƒCƒg”
-
-  \retval >=0 ‘—Mƒf[ƒ^”
-  \retval <0 ƒGƒ‰[
-
-  Example
-  \code
-  n = connection_write(&connection, "QT\n", 3); \endcode
-
-  \see connection_read(), connection_readline()
-*/
-extern int connection_write(urg_connection_t *connection,
-                            const char *data, int size);
+    /*! ï¿½{ï¿½[ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½İ’è‚·ï¿½ï¿½ */
+    extern int connection_set_baudrate(urg_connection_t* connection, long baudrate);
 
 
-/*!
-  \brief óM
+    /*!
+      \brief ï¿½ï¿½ï¿½M
 
-  ƒf[ƒ^‚ğóM‚·‚éB
+      ï¿½fï¿½[ï¿½^ï¿½ğ‘—Mï¿½ï¿½ï¿½ï¿½B
 
-  \param[in,out] connection ’ÊMƒŠƒ\[ƒX
-  \param[in] data óMƒf[ƒ^‚ğŠi”[‚·‚éƒoƒbƒtƒ@
-  \param[in] max_size óMƒf[ƒ^‚ğŠi”[‚Å‚«‚éƒoƒCƒg”
-  \param[in] timeout ƒ^ƒCƒ€ƒAƒEƒgŠÔ [msec]
+      \param[in,out] connection ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+      \param[in] data ï¿½ï¿½ï¿½Mï¿½fï¿½[ï¿½^
+      \param[in] size ï¿½ï¿½ï¿½Mï¿½oï¿½Cï¿½gï¿½ï¿½
 
-  \retval >=0 óMƒf[ƒ^”
-  \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-  timeout ‚É•‰‚Ì’l‚ğw’è‚µ‚½ê‡Aƒ^ƒCƒ€ƒAƒEƒg‚Í”­¶‚µ‚È‚¢B
+      Example
+      \code
+      n = connection_write(&connection, "QT\n", 3); \endcode
 
-  1 •¶š‚àóM‚µ‚È‚©‚Á‚½‚Æ‚«‚Í #URG_CONNECTION_TIMEOUT ‚ğ•Ô‚·B
-
-  Example
-  \code
-enum {
-    BUFFER_SIZE = 256,
-    TIMEOUT_MSEC = 1000,
-};
-char buffer[BUFFER_SIZE];
-n = connection_read(&connection, buffer, BUFFER_SIZE, TIMEOUT_MSEC); \endcode
-
-  \see connection_write(), connection_readline()
-*/
-extern int connection_read(urg_connection_t *connection,
-                           char *data, int max_size, int timeout);
+      \see connection_read(), connection_readline()
+    */
+    extern int connection_write(urg_connection_t* connection,
+        const char* data, int size);
 
 
-/*!
-  \brief ‰üs•¶š‚Ü‚Å‚ÌóM
+    /*!
+      \brief ï¿½ï¿½M
 
-  ‰üs•¶š‚Ü‚Å‚Ìƒf[ƒ^‚ğóM‚·‚éB
+      ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½B
 
-  \param[in,out] connection ’ÊMƒŠƒ\[ƒX
-  \param[in] data óMƒf[ƒ^‚ğŠi”[‚·‚éƒoƒbƒtƒ@
-  \param[in] max_size óMƒf[ƒ^‚ğŠi”[‚Å‚«‚éƒoƒCƒg”
-  \param[in] timeout ƒ^ƒCƒ€ƒAƒEƒgŠÔ [msec]
+      \param[in,out] connection ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+      \param[in] data ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@
+      \param[in] max_size ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½Å‚ï¿½ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½
+      \param[in] timeout ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½ï¿½ [msec]
 
-  \retval >=0 óMƒf[ƒ^”
-  \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-  data ‚É‚ÍA'\\0' I’[‚³‚ê‚½•¶š—ñ‚ª max_size ‚ğ‰z‚¦‚È‚¢ƒoƒCƒg”‚¾‚¯Ši”[‚³‚ê‚éB ‚Â‚Ü‚èAóM‚Å‚«‚é•¶š‚ÌƒoƒCƒg”‚ÍAÅ‘å‚Å max_size - 1 ‚Æ‚È‚éB
+      timeout ï¿½É•ï¿½ï¿½Ì’lï¿½ï¿½ï¿½wï¿½è‚µï¿½ï¿½ï¿½ê‡ï¿½Aï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½Í”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½B
 
-  ‰üs•¶š‚Í '\\r' ‚Ü‚½‚Í '\\n' ‚Æ‚·‚éB
+      1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ #URG_CONNECTION_TIMEOUT ï¿½ï¿½Ô‚ï¿½ï¿½B
 
-  óM‚µ‚½Å‰‚Ì•¶š‚ª‰üs‚Ìê‡‚ÍA0 ‚ğ•Ô‚µA1 •¶š‚àóM‚µ‚È‚©‚Á‚½‚Æ‚«‚Í #URG_CONNECTION_TIMEOUT ‚ğ•Ô‚·B
+      Example
+      \code
+    enum {
+        BUFFER_SIZE = 256,
+        TIMEOUT_MSEC = 1000,
+    };
+    char buffer[BUFFER_SIZE];
+    n = connection_read(&connection, buffer, BUFFER_SIZE, TIMEOUT_MSEC); \endcode
 
-  \see connection_write(), connection_read()
-*/
-extern int connection_readline(urg_connection_t *connection,
-                               char *data, int max_size, int timeout);
+      \see connection_write(), connection_readline()
+    */
+    extern int connection_read(urg_connection_t* connection,
+        char* data, int max_size, int timeout);
+
+
+    /*!
+      \brief ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Å‚Ìï¿½M
+
+      ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Å‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½B
+
+      \param[in,out] connection ï¿½ÊMï¿½ï¿½ï¿½\ï¿½[ï¿½X
+      \param[in] data ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½oï¿½bï¿½tï¿½@
+      \param[in] max_size ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½Å‚ï¿½ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½
+      \param[in] timeout ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½ï¿½ [msec]
+
+      \retval >=0 ï¿½ï¿½Mï¿½fï¿½[ï¿½^ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
+
+      data ï¿½É‚ÍA'\\0' ï¿½Iï¿½[ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ max_size ï¿½ï¿½ï¿½zï¿½ï¿½ï¿½È‚ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½B ï¿½Â‚Ü‚ï¿½Aï¿½ï¿½Mï¿½Å‚ï¿½ï¿½é•¶ï¿½ï¿½ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½ï¿½ÍAï¿½Å‘ï¿½ï¿½ max_size - 1 ï¿½Æ‚È‚ï¿½B
+
+      ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '\\r' ï¿½Ü‚ï¿½ï¿½ï¿½ '\\n' ï¿½Æ‚ï¿½ï¿½ï¿½B
+
+      ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Ìê‡ï¿½ÍA0 ï¿½ï¿½Ô‚ï¿½ï¿½A1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ #URG_CONNECTION_TIMEOUT ï¿½ï¿½Ô‚ï¿½ï¿½B
+
+      \see connection_write(), connection_read()
+    */
+    extern int connection_readline(urg_connection_t* connection,
+        char* data, int max_size, int timeout);
 
 #ifdef __cplusplus
 }

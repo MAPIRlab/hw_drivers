@@ -10,7 +10,8 @@
 #include "braccio/srv/status.hpp"
 #include "braccio/action/braccio_cmd.hpp"
 
-class Braccio: public rclcpp::Node{
+class Braccio : public rclcpp::Node
+{
 public:
     Braccio();
     ~Braccio();
@@ -34,7 +35,7 @@ private:
 
     // Action Callbacks
     rclcpp_action::GoalResponse handle_goal(
-        const rclcpp_action::GoalUUID & uuid,
+        const rclcpp_action::GoalUUID& uuid,
         std::shared_ptr<const BraccioAction::Goal> goal);
 
     rclcpp_action::CancelResponse handle_cancel(
@@ -58,4 +59,3 @@ private:
     // Arm Link lengths (m)
     float L1, L2, L3, L4, L5;
 };
-

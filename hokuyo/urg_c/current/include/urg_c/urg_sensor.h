@@ -4,15 +4,15 @@
 /*!
   \file
   \~japanese
-  \brief URG ƒZƒ“ƒT§Œä
+  \brief URG ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½
 
-  URG —p‚ÌŠî–{“I‚ÈŠÖ”‚ğ’ñ‹Ÿ‚µ‚Ü‚·B
+  URG ï¿½pï¿½ÌŠï¿½{ï¿½Iï¿½ÈŠÖï¿½ï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
 
   \~english
   \brief URG sensor
 
-  URG —p‚ÌŠî–{“I‚ÈŠÖ”‚ğ’ñ‹Ÿ‚µ‚Ü‚·B
+  URG ï¿½pï¿½ÌŠï¿½{ï¿½Iï¿½ÈŠÖï¿½ï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
   \~
   \author Satofumi KAMIMURA
@@ -30,41 +30,41 @@ extern "C" {
 
     /*!
       \~japanese
-      \brief Œv‘ªƒ^ƒCƒv
+      \brief ï¿½vï¿½ï¿½ï¿½^ï¿½Cï¿½v
     */
     typedef enum {
-        URG_DISTANCE,           /*!< \~japanese ‹——£ */
-        URG_DISTANCE_INTENSITY, /*!< \~japanese ‹——£ + ‹­“x */
-        URG_MULTIECHO,          /*!< \~japanese ƒ}ƒ‹ƒ`ƒGƒR[‚Ì‹——£ */
-        URG_MULTIECHO_INTENSITY, /*!< \~japanese ƒ}ƒ‹ƒ`ƒGƒR[‚Ì(‹——£ + ‹­“x) */
-        URG_STOP,                /*!< \~japanese Œv‘ª‚Ì’â~ */
-        URG_UNKNOWN,             /*!< \~japanese •s–¾ */
+        URG_DISTANCE,           /*!< \~japanese ï¿½ï¿½ï¿½ï¿½ */
+        URG_DISTANCE_INTENSITY, /*!< \~japanese ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½x */
+        URG_MULTIECHO,          /*!< \~japanese ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½Ì‹ï¿½ï¿½ï¿½ */
+        URG_MULTIECHO_INTENSITY, /*!< \~japanese ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½x) */
+        URG_STOP,                /*!< \~japanese ï¿½vï¿½ï¿½ï¿½Ì’ï¿½~ */
+        URG_UNKNOWN,             /*!< \~japanese ï¿½sï¿½ï¿½ */
     } urg_measurement_type_t;
 
     /*!
       \~japanese
-      \brief ‹——£‚ğ‰½ byte ‚Å•\Œ»‚·‚é‚©‚Ìw’è
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½Ìwï¿½ï¿½
     */
     typedef enum {
-        URG_COMMUNICATION_3_BYTE, /*!< \~japanese ‹——£‚ğ 3 byte ‚Å•\Œ»‚·‚é */
-        URG_COMMUNICATION_2_BYTE, /*!< \~japanese ‹——£‚ğ 2 byte ‚Å•\Œ»‚·‚é */
+        URG_COMMUNICATION_3_BYTE, /*!< \~japanese ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        URG_COMMUNICATION_2_BYTE, /*!< \~japanese ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     } urg_range_data_byte_t;
 
 
     enum {
-        URG_SCAN_INFINITY = 0,  /*!< \~japanese –³ŒÀ‰ñ‚Ìƒf[ƒ^æ“¾ */
-        URG_MAX_ECHO = 3, /*!< \~japanese ƒ}ƒ‹ƒ`ƒGƒR[‚ÌÅ‘åƒGƒR[” */
+        URG_SCAN_INFINITY = 0,  /*!< \~japanese ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½æ“¾ */
+        URG_MAX_ECHO = 3, /*!< \~japanese ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ÌÅ‘ï¿½Gï¿½Rï¿½[ï¿½ï¿½ */
     };
 
 
-    /*! \~japanese ƒGƒ‰[ƒnƒ“ƒhƒ‰ \~english error handler */
+    /*! \~japanese ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ \~english error handler */
     typedef urg_measurement_type_t
-    (*urg_error_handler)(const char *status, void *urg);
+    (*urg_error_handler)(const char* status, void* urg);
 
 
     /*!
       \~japanese
-      \brief URG ƒZƒ“ƒTŠÇ—
+      \brief URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
       \~english
       \brief URG sensor
@@ -107,25 +107,25 @@ extern "C" {
 
     /*!
       \~japanese
-      \brief Ú‘±
+      \brief ï¿½Ú‘ï¿½
 
-      w’è‚µ‚½ƒfƒoƒCƒX‚ÉÚ‘±‚µA‹——£‚ğŒv‘ª‚Å‚«‚é‚æ‚¤‚É‚·‚éB
+      ï¿½wï¿½è‚µï¿½ï¿½ï¿½fï¿½oï¿½Cï¿½Xï¿½ÉÚ‘ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[in] connection_type ’ÊMƒ^ƒCƒv
-      \param[in] device_or_address Ú‘±ƒfƒoƒCƒX–¼
-      \param[in] baudrate_or_port Ú‘±ƒ{[ƒŒ[ƒg [bps] / TCP/IP ƒ|[ƒg
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[in] connection_type ï¿½ÊMï¿½^ï¿½Cï¿½v
+      \param[in] device_or_address ï¿½Ú‘ï¿½ï¿½fï¿½oï¿½Cï¿½Xï¿½ï¿½
+      \param[in] baudrate_or_port ï¿½Ú‘ï¿½ï¿½{ï¿½[ï¿½ï¿½ï¿½[ï¿½g [bps] / TCP/IP ï¿½|ï¿½[ï¿½g
 
-      \retval 0 ³í
-      \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      connection_type ‚É‚ÍAˆÈ‰º‚Ì€–Ú‚ªw’è‚Å‚«‚Ü‚·B
+      connection_type ï¿½É‚ÍAï¿½È‰ï¿½ï¿½Ìï¿½ï¿½Ú‚ï¿½ï¿½wï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       - #URG_SERIAL
-      - ƒVƒŠƒAƒ‹AUSB Ú‘±
+      - ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½AUSB ï¿½Ú‘ï¿½
 
       - #URG_ETHERNET
-      - ƒC[ƒT[ƒlƒbƒgÚ‘±
+      - ï¿½Cï¿½[ï¿½Tï¿½[ï¿½lï¿½bï¿½gï¿½Ú‘ï¿½
 
       Example
       \code
@@ -139,53 +139,53 @@ extern "C" {
 
       urg_close(&urg); \endcode
 
-      \attention URG C ƒ‰ƒCƒuƒ‰ƒŠ‚Ì‘¼‚ÌŠÖ”‚ğŒÄ‚Ño‚·‘O‚ÉA‚±‚ÌŠÖ”‚ğŒÄ‚Ño‚·•K—v‚ª‚ ‚è‚Ü‚·B
+      \attention URG C ï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Oï¿½ÉAï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       \~
       \see urg_close()
     */
-    extern int urg_open(urg_t *urg, urg_connection_type_t connection_type,
-                        const char *device_or_address,
-                        long baudrate_or_port);
+    extern int urg_open(urg_t* urg, urg_connection_type_t connection_type,
+        const char* device_or_address,
+        long baudrate_or_port);
 
 
     /*!
       \~japanese
-      \brief Ø’f
+      \brief ï¿½Ø’f
 
-      ƒŒ[ƒU‚ğÁ“”‚µAURG ‚Æ‚ÌÚ‘±‚ğØ’f‚µ‚Ü‚·B
+      ï¿½ï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½AURG ï¿½Æ‚ÌÚ‘ï¿½ï¿½ï¿½Ø’fï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
       \~
       \see urg_open()
     */
-    extern void urg_close(urg_t *urg);
+    extern void urg_close(urg_t* urg);
 
 
     /*!
-      \brief ƒ^ƒCƒ€ƒAƒEƒgŠÔ‚Ìİ’è
+      \brief ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½Ô‚Ìİ’ï¿½
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[in] msec ƒ^ƒCƒ€ƒAƒEƒg‚·‚éŠÔ [msec]
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[in] msec ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½ï¿½ï¿½éï¿½ï¿½ [msec]
 
-      \attention urg_open() ‚ğŒÄ‚Ño‚·‚Æ timeout ‚Ìİ’è’l‚ÍƒfƒtƒHƒ‹ƒg’l‚É‰Šú‰»‚³‚ê‚é‚½‚ßA‚±‚ÌŠÖ”‚Í urg_open() Œã‚ÉŒÄ‚Ño‚·‚±‚ÆB
+      \attention urg_open() ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ timeout ï¿½Ìİ’ï¿½lï¿½Íƒfï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½lï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚½ï¿½ßAï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½ï¿½ urg_open() ï¿½ï¿½ÉŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½ÆB
     */
-    extern void urg_set_timeout_msec(urg_t *urg, int msec);
+    extern void urg_set_timeout_msec(urg_t* urg, int msec);
 
 
-    /*! \~japanese ƒ^ƒCƒ€ƒXƒ^ƒ“ƒvƒ‚[ƒh‚ÌŠJn */
-    extern int urg_start_time_stamp_mode(urg_t *urg);
+    /*! \~japanese ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½hï¿½ÌŠJï¿½n */
+    extern int urg_start_time_stamp_mode(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚Ìæ“¾
+      \brief ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½Ìæ“¾
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
-      \retval >=0 ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv [msec]
-      \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½v [msec]
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
       Example
       \code
@@ -195,49 +195,49 @@ extern "C" {
       time_stamp = urg_time_stamp(&urg);
       after_ticks = get_pc_msec_function();
 
-      // ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚É‚Â‚¢‚Ä‚ÌŒvZ
+      // ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½É‚Â‚ï¿½ï¿½Ä‚ÌŒvï¿½Z
       ...
 
       urg_stop_time_stamp_mode(&urg); \endcode
 
-      Ú‚µ‚­‚Í \ref sync_time_stamp.c ‚ğQÆ‚µ‚Ä‰º‚³‚¢B
+      ï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½ \ref sync_time_stamp.c ï¿½ï¿½ï¿½Qï¿½Æ‚ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
     */
-    extern long urg_time_stamp(urg_t *urg);
+    extern long urg_time_stamp(urg_t* urg);
 
 
-    /*! \~japanese ƒ^ƒCƒ€ƒXƒ^ƒ“ƒvƒ‚[ƒh‚ÌI—¹ */
-    extern int urg_stop_time_stamp_mode(urg_t *urg);
+    /*! \~japanese ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½hï¿½ÌIï¿½ï¿½ */
+    extern int urg_stop_time_stamp_mode(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ‹——£ƒf[ƒ^‚Ìæ“¾‚ğŠJn
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ï¿½ï¿½Jï¿½n
 
-      ‹——£ƒf[ƒ^‚Ìæ“¾‚ğŠJn‚µ‚Ü‚·BÀÛ‚Ìƒf[ƒ^‚Í urg_get_distance(), urg_get_distance_intensity(), urg_get_multiecho(), urg_get_multiecho_intensity() ‚Åæ“¾‚Å‚«‚Ü‚·B
+      ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½Û‚Ìƒfï¿½[ï¿½^ï¿½ï¿½ urg_get_distance(), urg_get_distance_intensity(), urg_get_multiecho(), urg_get_multiecho_intensity() ï¿½Åæ“¾ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[in] type ƒf[ƒ^Eƒ^ƒCƒv
-      \param[in] scan_times ƒf[ƒ^‚Ìæ“¾‰ñ”
-      \param[in] skip_scan ƒf[ƒ^‚Ìæ“¾ŠÔŠu
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[in] type ï¿½fï¿½[ï¿½^ï¿½Eï¿½^ï¿½Cï¿½v
+      \param[in] scan_times ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ï¿½
+      \param[in] skip_scan ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ÔŠu
 
-      \retval 0 ³í
-      \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      type ‚É‚Íæ“¾‚·‚éƒf[ƒ^‚Ìí—Ş‚ğw’è‚µ‚Ü‚·B
+      type ï¿½É‚Íæ“¾ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìï¿½Ş‚ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½ï¿½B
 
-      - #URG_DISTANCE ... ‹——£ƒf[ƒ^
-      - #URG_DISTANCE_INTENSITY ... ‹——£ƒf[ƒ^‚Æ‹­“xƒf[ƒ^
-      - #URG_MULTIECHO ... ƒ}ƒ‹ƒ`ƒGƒR[”Å‚Ì‹——£ƒf[ƒ^
-      - #URG_MULTIECHO_INTENSITY ... ƒ}ƒ‹ƒ`ƒGƒR[”Å‚Ì(‹——£ƒf[ƒ^‚Æ‹­“xƒf[ƒ^)
+      - #URG_DISTANCE ... ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^
+      - #URG_DISTANCE_INTENSITY ... ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Æ‹ï¿½ï¿½xï¿½fï¿½[ï¿½^
+      - #URG_MULTIECHO ... ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½Å‚Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^
+      - #URG_MULTIECHO_INTENSITY ... ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½Å‚ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Æ‹ï¿½ï¿½xï¿½fï¿½[ï¿½^)
 
-      scan_times ‚Í‰½‰ñ‚Ìƒf[ƒ^‚ğæ“¾‚·‚é‚©‚ğ 0 ˆÈã‚Ì”‚Åw’è‚µ‚Ü‚·B‚½‚¾‚µA0 ‚Ü‚½‚Í #URG_SCAN_INFINITY ‚ğw’è‚µ‚½ê‡‚ÍA–³ŒÀ‰ñ‚Ìƒf[ƒ^‚ğæ“¾‚µ‚Ü‚·B\n
-      ŠJn‚µ‚½Œv‘ª‚ğ’†’f‚·‚é‚É‚Í urg_stop_measurement() ‚ğg‚¢‚Ü‚·B
+      scan_times ï¿½Í‰ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½é‚©ï¿½ï¿½ 0 ï¿½Èï¿½Ìï¿½ï¿½Åwï¿½è‚µï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A0 ï¿½Ü‚ï¿½ï¿½ï¿½ #URG_SCAN_INFINITY ï¿½ï¿½ï¿½wï¿½è‚µï¿½ï¿½ï¿½ê‡ï¿½ÍAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B\n
+      ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ğ’†’fï¿½ï¿½ï¿½ï¿½É‚ï¿½ urg_stop_measurement() ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      skip_scan ‚Íƒ~ƒ‰[‚Ì‰ñ“]”‚Ì‚¤‚¿A‚P‰ñ‚ÌƒXƒLƒƒƒ“Œã‚É‰½‰ñƒXƒLƒƒƒ“‚µ‚È‚¢‚©‚ğw’è‚µ‚Ü‚·Bskip_scan ‚Éw’è‚Å‚«‚é”ÍˆÍ‚Í [0, 9] ‚Å‚·B
+      skip_scan ï¿½Íƒ~ï¿½ï¿½ï¿½[ï¿½Ì‰ï¿½]ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Aï¿½Pï¿½ï¿½ÌƒXï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½ï¿½ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½ï¿½Bskip_scan ï¿½Éwï¿½ï¿½Å‚ï¿½ï¿½ï¿½ÍˆÍ‚ï¿½ [0, 9] ï¿½Å‚ï¿½ï¿½B
 
-      \image html skip_scan_image.png ‰½‰ñ‚É‚P‰ñ‚¾‚¯Œv‘ª‚·‚é‚©
+      \image html skip_scan_image.png ï¿½ï¿½ï¿½ï¿½É‚Pï¿½ñ‚¾‚ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½é‚©
 
-      ‚½‚Æ‚¦‚ÎAƒ~ƒ‰[‚Ì‚P‰ñ“]‚ª 100 [msec] ‚ÌƒZƒ“ƒT‚Å skip_scan ‚É 1 ‚ğw’è‚µ‚½ê‡Aƒf[ƒ^‚Ìæ“¾ŠÔŠu‚Í 200 [msec] ‚É‚È‚è‚Ü‚·B
+      ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÎAï¿½~ï¿½ï¿½ï¿½[ï¿½Ì‚Pï¿½ï¿½]ï¿½ï¿½ 100 [msec] ï¿½ÌƒZï¿½ï¿½ï¿½Tï¿½ï¿½ skip_scan ï¿½ï¿½ 1 ï¿½ï¿½ï¿½wï¿½è‚µï¿½ï¿½ï¿½ê‡ï¿½Aï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ÔŠuï¿½ï¿½ 200 [msec] ï¿½É‚È‚ï¿½Ü‚ï¿½ï¿½B
 
       Example
       \code
@@ -247,33 +247,33 @@ extern "C" {
       for (i = 0; i < CAPTURE_TIMES; ++i) {
       int n = urg_get_distance(&urg, data, &time_stamp);
 
-      // óM‚µ‚½ƒf[ƒ^‚Ì—˜—p
+      // ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ì—ï¿½ï¿½p
       ...
       } \endcode
 
       \~
       \see urg_get_distance(), urg_get_distance_intensity(), urg_get_multiecho(), urg_get_multiecho_intensity(), urg_stop_measurement()
     */
-    extern int urg_start_measurement(urg_t *urg, urg_measurement_type_t type,
-                                     int scan_times, int skip_scan);
+    extern int urg_start_measurement(urg_t* urg, urg_measurement_type_t type,
+        int scan_times, int skip_scan);
 
 
     /*!
       \~japanese
-      \brief ‹——£ƒf[ƒ^‚Ìæ“¾
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾
 
-      ƒZƒ“ƒT‚©‚ç‹——£ƒf[ƒ^‚ğæ“¾‚µ‚Ü‚·B–‘O‚É urg_start_measurement() ‚ğ #URG_DISTANCE w’è‚ÅŒÄ‚Ño‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ç‹—ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ urg_start_measurement() ï¿½ï¿½ #URG_DISTANCE ï¿½wï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[out] data ‹——£ƒf[ƒ^ [mm]
-      \param[out] time_stamp ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv [msec]
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[out] data ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ [mm]
+      \param[out] time_stamp ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½v [msec]
 
-      \retval >=0 óM‚µ‚½ƒf[ƒ^ŒÂ”
-      \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Âï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      data ‚É‚ÍAƒZƒ“ƒT‚©‚çæ“¾‚µ‚½‹——£ƒf[ƒ^‚ªŠi”[‚³‚ê‚Ü‚·Bdata ‚Íƒf[ƒ^‚ğŠi”[‚·‚é‚ÌƒTƒCƒY‚ğŠm•Û‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·Bdata ‚ÉŠi”[‚³‚ê‚éƒf[ƒ^”‚Í urg_max_data_size() ‚Åæ“¾‚Å‚«‚Ü‚·B
+      data ï¿½É‚ÍAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bdata ï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½mï¿½Û‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bdata ï¿½ÉŠiï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ urg_max_data_size() ï¿½Åæ“¾ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      time_stamp ‚É‚ÍAƒZƒ“ƒT“à•”‚Ìƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚ªŠi”[‚³‚ê‚Ü‚·Btime_stamp ‚ğæ“¾‚µ‚½‚­‚È‚¢ê‡ NULL ‚ğw’è‚µ‚Ä‰º‚³‚¢B
+      time_stamp ï¿½É‚ÍAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½Ìƒ^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Btime_stamp ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡ NULL ï¿½ï¿½ï¿½wï¿½è‚µï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
 
       Example
       \code
@@ -281,13 +281,13 @@ extern "C" {
 
       ...
 
-      // ƒf[ƒ^‚Ì‚İæ“¾‚·‚é
+      // ï¿½fï¿½[ï¿½^ï¿½Ì‚İæ“¾ï¿½ï¿½ï¿½ï¿½
       urg_start_measurement(&urg, URG_DISTANCE, 1, 0);
       int n = urg_get_distance(&urg, data, NULL);
 
       ...
 
-      // ƒf[ƒ^‚Æƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚ğæ“¾‚·‚é
+      // ï¿½fï¿½[ï¿½^ï¿½Æƒ^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
       long time_stamp;
       urg_start_measurement(&urg, URG_DISTANCE, 1, 0);
       n = urg_get_distance(&urg, data, &time_stamp); \endcode
@@ -295,28 +295,28 @@ extern "C" {
       \~
       \see urg_start_measurement(), urg_max_data_size()
     */
-    extern int urg_get_distance(urg_t *urg, long data[], long *time_stamp, unsigned long long *system_time_stamp);
+    extern int urg_get_distance(urg_t* urg, long data[], long* time_stamp, unsigned long long* system_time_stamp);
 
 
     /*!
       \~japanese
-      \brief ‹——£‚Æ‹­“xƒf[ƒ^‚Ìæ“¾
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½Æ‹ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½Ìæ“¾
 
-      urg_get_distance() ‚É‰Á‚¦A‹­“xƒf[ƒ^‚Ìæ“¾‚ª‚Å‚«‚éŠÖ”‚Å‚·B–‘O‚É urg_start_measurement() ‚ğ #URG_DISTANCE_INTENSITY w’è‚ÅŒÄ‚Ño‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
+      urg_get_distance() ï¿½É‰ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½Öï¿½ï¿½Å‚ï¿½ï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ urg_start_measurement() ï¿½ï¿½ #URG_DISTANCE_INTENSITY ï¿½wï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[out] data ‹——£ƒf[ƒ^ [mm]
-      \param[out] intensity ‹­“xƒf[ƒ^
-      \param[out] time_stamp ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv [msec]
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[out] data ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ [mm]
+      \param[out] intensity ï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^
+      \param[out] time_stamp ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½v [msec]
 
-      \retval >=0 óM‚µ‚½ƒf[ƒ^ŒÂ”
-      \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Âï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      ‹­“xƒf[ƒ^‚Æ‚ÍA‹——£ŒvZ‚Ég‚Á‚½”gŒ`‚Ì”½Ë‹­“x‚Å‚ ‚èAƒZƒ“ƒT‚ÌƒVƒŠ[ƒY–ˆ‚É“Á«‚ªˆÙ‚È‚è‚Ü‚·B ‹­“xƒf[ƒ^‚ğg‚¤‚±‚Æ‚ÅA•¨‘Ì‚Ì”½Ë—¦‚âŠÂ‹«‚Ì‘å‚Ü‚©‚È”Z’W‚ğ„‘ª‚Å‚«‚Ü‚·B
+      ï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½Æ‚ÍAï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Zï¿½Égï¿½ï¿½ï¿½ï¿½ï¿½gï¿½`ï¿½Ì”ï¿½ï¿½Ë‹ï¿½ï¿½xï¿½Å‚ï¿½ï¿½ï¿½Aï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒVï¿½ï¿½ï¿½[ï¿½Yï¿½ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù‚È‚ï¿½Ü‚ï¿½ï¿½B ï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ÅAï¿½ï¿½ï¿½Ì‚Ì”ï¿½ï¿½Ë—ï¿½ï¿½ï¿½Â‹ï¿½ï¿½Ì‘ï¿½Ü‚ï¿½ï¿½È”Zï¿½Wï¿½ğ„‘ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      data, time_stamp ‚É‚Â‚¢‚Ä‚Í urg_get_distance() ‚Æ“¯‚¶‚Å‚·B
+      data, time_stamp ï¿½É‚Â‚ï¿½ï¿½Ä‚ï¿½ urg_get_distance() ï¿½Æ“ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½B
 
-      intensity ‚É‚ÍAƒZƒ“ƒT‚©‚çæ“¾‚µ‚½‹­“xƒf[ƒ^‚ªŠi”[‚³‚ê‚Ü‚·Bintensity ‚Íƒf[ƒ^‚ğŠi”[‚·‚é‚ÌƒTƒCƒY‚ğŠm•Û‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·Bintensity ‚ÉŠi”[‚³‚ê‚éƒf[ƒ^”‚Í urg_max_data_size() ‚Åæ“¾‚Å‚«‚Ü‚·B
+      intensity ï¿½É‚ÍAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bintensity ï¿½Íƒfï¿½[ï¿½^ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½mï¿½Û‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bintensity ï¿½ÉŠiï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ urg_max_data_size() ï¿½Åæ“¾ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       \~
       Example
@@ -333,43 +333,43 @@ extern "C" {
       \~
       \see urg_start_measurement(), urg_max_data_size()
     */
-    extern int urg_get_distance_intensity(urg_t *urg, long data[],
-                                          unsigned short intensity[],
-                                          long *time_stamp, unsigned long long *system_time_stamp);
+    extern int urg_get_distance_intensity(urg_t* urg, long data[],
+        unsigned short intensity[],
+        long* time_stamp, unsigned long long* system_time_stamp);
 
 
     /*!
       \~japanese
-      \brief ‹——£ƒf[ƒ^‚Ìæ“¾ (ƒ}ƒ‹ƒ`ƒGƒR[”Å)
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ (ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ï¿½)
 
-      ƒ}ƒ‹ƒ`ƒGƒR[”Å‚Ì‹——£ƒf[ƒ^æ“¾ŠÖ”‚Å‚·B–‘O‚É urg_start_measurement() ‚ğ #URG_MULTIECHO w’è‚ÅŒÄ‚Ño‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
+      ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½Å‚Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½æ“¾ï¿½Öï¿½ï¿½Å‚ï¿½ï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ urg_start_measurement() ï¿½ï¿½ #URG_MULTIECHO ï¿½wï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[out] data_multi ‹——£ƒf[ƒ^ [mm]
-      \param[out] time_stamp ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv [msec]
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[out] data_multi ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ [mm]
+      \param[out] time_stamp ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½v [msec]
 
-      \retval >=0 óM‚µ‚½ƒf[ƒ^ŒÂ”
-      \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Âï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      ƒ}ƒ‹ƒ`ƒGƒR[‚Æ‚Í•¡”‚Ì‹——£ƒf[ƒ^‚Å‚·B ƒ}ƒ‹ƒ`ƒGƒR[‚ÍA‚P‚Â‚ÌƒŒ[ƒU”­Œõ‚É‚¨‚¢‚Ä•¡”‚Ì‹——£ƒf[ƒ^‚ª“¾‚ç‚ê‚½‚Æ‚«‚É“¾‚ç‚ê‚Ü‚·B
+      ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½Æ‚Í•ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Å‚ï¿½ï¿½B ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ÍAï¿½Pï¿½Â‚Ìƒï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \image html multiecho_image.png ƒ}ƒ‹ƒ`ƒGƒR[‚ÌƒCƒ[ƒW}
+      \image html multiecho_image.png ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ÌƒCï¿½ï¿½ï¿½[ï¿½Wï¿½}
 
-      time_stamp ‚É‚Â‚¢‚Ä‚Í urg_get_distance() ‚Æ“¯‚¶‚Å‚·B
+      time_stamp ï¿½É‚Â‚ï¿½ï¿½Ä‚ï¿½ urg_get_distance() ï¿½Æ“ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½B
 
-      data_multi ‚É‚ÍAƒZƒ“ƒT‚©‚çæ“¾‚µ‚½‹——£ƒf[ƒ^‚ª‚P‚Â‚Ì step ‚ ‚½‚èÅ‘å‚Å #URG_MAX_ECHO (3 ‚Â)Ši”[‚³‚ê‚Ü‚·Bƒ}ƒ‹ƒ`ƒGƒR[‚ª‘¶İ‚µ‚È‚¢€–Ú‚Ìƒf[ƒ^’l‚Í -1 ‚ªŠi”[‚³‚ê‚Ä‚¢‚Ü‚·B
+      data_multi ï¿½É‚ÍAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Pï¿½Â‚ï¿½ step ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å‘ï¿½ï¿½ #URG_MAX_ECHO (3 ï¿½ï¿½)ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Ú‚Ìƒfï¿½[ï¿½^ï¿½lï¿½ï¿½ -1 ï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       \verbatim
-      data_multi[0] ... step n ‚Ì‹——£ƒf[ƒ^ (1 ‚Â‚ß)
-      data_multi[1] ... step n ‚Ì‹——£ƒf[ƒ^ (2 ‚Â‚ß)
-      data_multi[2] ... step n ‚Ì‹——£ƒf[ƒ^ (3 ‚Â‚ß)
-      data_multi[3] ... step (n + 1) ‚Ì ‹——£ƒf[ƒ^ (1 ‚Â‚ß)
-      data_multi[4] ... step (n + 1) ‚Ì ‹——£ƒf[ƒ^ (2 ‚Â‚ß)
-      data_multi[5] ... step (n + 1) ‚Ì ‹——£ƒf[ƒ^ (3 ‚Â‚ß)
+      data_multi[0] ... step n ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (1 ï¿½Â‚ï¿½)
+      data_multi[1] ... step n ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (2 ï¿½Â‚ï¿½)
+      data_multi[2] ... step n ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (3 ï¿½Â‚ï¿½)
+      data_multi[3] ... step (n + 1) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (1 ï¿½Â‚ï¿½)
+      data_multi[4] ... step (n + 1) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (2 ï¿½Â‚ï¿½)
+      data_multi[5] ... step (n + 1) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ (3 ï¿½Â‚ï¿½)
       ... \endverbatim
 
-      Ši”[‡‚ÍAŠe step ‚É‚¨‚¢‚Ä urg_get_distance() ‚Ì‚Æ‚«‚Æ“¯‚¶‹——£‚Ìƒf[ƒ^‚ª (3n + 0) ‚ÌˆÊ’u‚ÉŠi”[‚³‚êA‚»‚êˆÈŠO‚Ìƒf[ƒ^‚ª (3n + 1), (3n + 2) ‚ÌˆÊ’u‚É~‡‚ÉŠi”[‚³‚ê‚Ü‚·B\n
-      ‚Â‚Ü‚è data_multi[3n + 1] >= data_multi[3n + 2] ‚É‚È‚é‚±‚Æ‚Í•ÛØ‚³‚ê‚Ü‚·‚ª data_multi[3n + 0] ‚Æ data_multi[3n + 1] ‚ÌŠÖŒW‚Í–¢’è‹`‚Å‚·B(data_multi[3n + 1] == data_multi[3n + 2] ‚ª¬‚è—§‚Â‚Ì‚Íƒf[ƒ^’l‚ª -1 ‚Ì‚Æ‚«B)
+      ï¿½iï¿½[ï¿½ï¿½ï¿½ÍAï¿½e step ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ urg_get_distance() ï¿½Ì‚Æ‚ï¿½ï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ (3n + 0) ï¿½ÌˆÊ’uï¿½ÉŠiï¿½[ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ÈŠOï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ (3n + 1), (3n + 2) ï¿½ÌˆÊ’uï¿½É~ï¿½ï¿½ï¿½ÉŠiï¿½[ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B\n
+      ï¿½Â‚Ü‚ï¿½ data_multi[3n + 1] >= data_multi[3n + 2] ï¿½É‚È‚é‚±ï¿½Æ‚Í•ÛØ‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ data_multi[3n + 0] ï¿½ï¿½ data_multi[3n + 1] ï¿½ÌŠÖŒWï¿½Í–ï¿½ï¿½ï¿½`ï¿½Å‚ï¿½ï¿½B(data_multi[3n + 1] == data_multi[3n + 2] ï¿½ï¿½ï¿½ï¿½ï¿½è—§ï¿½Â‚Ì‚Íƒfï¿½[ï¿½^ï¿½lï¿½ï¿½ -1 ï¿½Ì‚Æ‚ï¿½ï¿½B)
 
       \~
       Example
@@ -384,26 +384,26 @@ extern "C" {
       \~
       \see urg_start_measurement(), urg_max_data_size()
     */
-    extern int urg_get_multiecho(urg_t *urg, long data_multi[], long *time_stamp, unsigned long long *system_time_stamp);
+    extern int urg_get_multiecho(urg_t* urg, long data_multi[], long* time_stamp, unsigned long long* system_time_stamp);
 
 
     /*!
       \~japanese
-      \brief ‹——£‚Æ‹­“xƒf[ƒ^‚Ìæ“¾ (ƒ}ƒ‹ƒ`ƒGƒR[”Å)
+      \brief ï¿½ï¿½ï¿½ï¿½ï¿½Æ‹ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ (ï¿½}ï¿½ï¿½ï¿½`ï¿½Gï¿½Rï¿½[ï¿½ï¿½)
 
-      urg_get_multiecho() ‚É‰Á‚¦A‹­“xƒf[ƒ^‚Ìæ“¾‚Å‚«‚éŠÖ”‚Å‚·B–‘O‚É urg_start_measurement() ‚ğ #URG_MULTIECHO_INTENSITY w’è‚ÅŒÄ‚Ño‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
+      urg_get_multiecho() ï¿½É‰ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½Ìæ“¾ï¿½Å‚ï¿½ï¿½ï¿½Öï¿½ï¿½Å‚ï¿½ï¿½Bï¿½ï¿½ï¿½Oï¿½ï¿½ urg_start_measurement() ï¿½ï¿½ #URG_MULTIECHO_INTENSITY ï¿½wï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Kï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[out] data_multi ‹——£ƒf[ƒ^ [mm]
-      \param[out] intensity_multi ‹­“xƒf[ƒ^
-      \param[out] time_stamp ƒ^ƒCƒ€ƒXƒ^ƒ“ƒv [msec]
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[out] data_multi ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ [mm]
+      \param[out] intensity_multi ï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^
+      \param[out] time_stamp ï¿½^ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½v [msec]
 
-      \retval >=0 óM‚µ‚½ƒf[ƒ^ŒÂ”
-      \retval <0 ƒGƒ‰[
+      \retval >=0 ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Âï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      data_multi, time_stamp ‚É‚Â‚¢‚Ä‚Í urg_get_multiecho() ‚Æ“¯‚¶‚Å‚·B
+      data_multi, time_stamp ï¿½É‚Â‚ï¿½ï¿½Ä‚ï¿½ urg_get_multiecho() ï¿½Æ“ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½B
 
-      intensity_multi ‚Ìƒf[ƒ^‚Ì•À‚Ñ‚Í data_multi ‚Æ‘Î‰‚µ‚½‚à‚Ì‚É‚È‚è‚Ü‚·Bintensity_multi ‚ÉŠi”[‚³‚ê‚éƒf[ƒ^”‚Í urg_max_data_size() ‚Åæ“¾‚Å‚«‚Ü‚·B
+      intensity_multi ï¿½Ìƒfï¿½[ï¿½^ï¿½Ì•ï¿½ï¿½Ñ‚ï¿½ data_multi ï¿½Æ‘Î‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚É‚È‚ï¿½Ü‚ï¿½ï¿½Bintensity_multi ï¿½ÉŠiï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ urg_max_data_size() ï¿½Åæ“¾ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       \~
       Example
@@ -421,21 +421,21 @@ extern "C" {
       \~
       \see urg_start_measurement(), urg_max_data_size()
     */
-    extern int urg_get_multiecho_intensity(urg_t *urg, long data_multi[],
-                                           unsigned short intensity_multi[],
-                                           long *time_stamp, unsigned long long *system_time_stamp);
+    extern int urg_get_multiecho_intensity(urg_t* urg, long data_multi[],
+        unsigned short intensity_multi[],
+        long* time_stamp, unsigned long long* system_time_stamp);
 
 
     /*!
       \~japanese
-      \brief Œv‘ª‚ğ’†’f‚µAƒŒ[ƒU‚ğÁ“”‚³‚¹‚Ü‚·
+      \brief ï¿½vï¿½ï¿½ï¿½ğ’†’fï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½
 
-      \ref urg_start_measurement() ‚ÌŒv‘ª‚ğ’†’f‚µ‚Ü‚·B
+      \ref urg_start_measurement() ï¿½ÌŒvï¿½ï¿½ï¿½ğ’†’fï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
-      \retval 0 ³í
-      \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
       \~
       Example
@@ -449,44 +449,44 @@ extern "C" {
       \~
       \see urg_start_measurement()
     */
-    extern int urg_stop_measurement(urg_t *urg);
+    extern int urg_stop_measurement(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief Œv‘ª”ÍˆÍ‚ğİ’è‚µ‚Ü‚·
+      \brief ï¿½vï¿½ï¿½ï¿½ÍˆÍ‚ï¿½İ’è‚µï¿½Ü‚ï¿½
 
-      ƒZƒ“ƒT‚ªŒv‘ª‚·‚é”ÍˆÍ‚ğ step ’l‚Åw’è‚µ‚Ü‚·Burg_get_distance() ‚È‚Ç‚Ì‹——£ƒf[ƒ^æ“¾‚ÌŠÖ”‚Å•Ô‚³‚ê‚éƒf[ƒ^”‚ÍA‚±‚±‚Åw’è‚µ‚½”ÍˆÍ‚Å§ŒÀ‚³‚ê‚Ü‚·B
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÍˆÍ‚ï¿½ step ï¿½lï¿½Åwï¿½è‚µï¿½Ü‚ï¿½ï¿½Burg_get_distance() ï¿½È‚Ç‚Ì‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½æ“¾ï¿½ÌŠÖï¿½ï¿½Å•Ô‚ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ÍAï¿½ï¿½ï¿½ï¿½ï¿½Åwï¿½è‚µï¿½ï¿½ï¿½ÍˆÍ‚Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[in] first_step Œv‘ª‚ÌŠJn step
-      \param[in] last_step Œv‘ª‚ÌI—¹ step
-      \param[in] skip_step Œv‘ªƒf[ƒ^‚ğƒOƒ‹[ƒsƒ“ƒO‚·‚éŒÂ”
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[in] first_step ï¿½vï¿½ï¿½ï¿½ÌŠJï¿½n step
+      \param[in] last_step ï¿½vï¿½ï¿½ï¿½ÌIï¿½ï¿½ step
+      \param[in] skip_step ï¿½vï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½Âï¿½
 
-      \retval 0 ³í
-      \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      ƒZƒ“ƒT‚Ì step ‚ÍAƒZƒ“ƒT³–Ê‚ğ 0 ‚Æ‚µAƒZƒ“ƒTã•”‚©‚çŒ©‚Ä”½Œv‚Ü‚í‚è‚ÌŒü‚«‚ª³‚Ì’l‚Æ‚È‚é‡‚ÉŠ„‚èU‚ç‚ê‚Ü‚·B
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ step ï¿½ÍAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½Ê‚ï¿½ 0 ï¿½Æ‚ï¿½ï¿½Aï¿½Zï¿½ï¿½ï¿½Tï¿½ã•”ï¿½ï¿½ï¿½çŒ©ï¿½Ä”ï¿½ï¿½ï¿½ï¿½vï¿½Ü‚ï¿½ï¿½ÌŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì’lï¿½Æ‚È‚é‡ï¿½ÉŠï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \image html sensor_angle_image.png ƒZƒ“ƒT‚Æ step ‚ÌŠÖŒW
+      \image html sensor_angle_image.png ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ step ï¿½ÌŠÖŒW
 
-      step ‚ÌŠÔŠu‚ÆAÅ‘å’lAÅ¬’l‚ÍƒZƒ“ƒTˆË‘¶‚Å‚·Bstep ’l‚ÌÅ‘å’lAÅ¬’l‚Í urg_step_min_max() ‚Åæ“¾‚Å‚«‚Ü‚·B\n
+      step ï¿½ÌŠÔŠuï¿½ÆAï¿½Å‘ï¿½lï¿½Aï¿½Åï¿½ï¿½lï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Å‚ï¿½ï¿½Bstep ï¿½lï¿½ÌÅ‘ï¿½lï¿½Aï¿½Åï¿½ï¿½lï¿½ï¿½ urg_step_min_max() ï¿½Åæ“¾ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B\n
 
-      first_step, last_step ‚Åƒf[ƒ^‚ÌŒv‘ª”ÍˆÍ‚ğw’è‚µ‚Ü‚·BŒv‘ª”ÍˆÍ‚Í [first_step, last_step] ‚Æ‚È‚è‚Ü‚·B
+      first_step, last_step ï¿½Åƒfï¿½[ï¿½^ï¿½ÌŒvï¿½ï¿½ï¿½ÍˆÍ‚ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½ï¿½Bï¿½vï¿½ï¿½ï¿½ÍˆÍ‚ï¿½ [first_step, last_step] ï¿½Æ‚È‚ï¿½Ü‚ï¿½ï¿½B
 
-      skip_step ‚ÍAŒv‘ªƒf[ƒ^‚ğƒOƒ‹[ƒsƒ“ƒO‚·‚éŒÂ”‚ğw’è‚µ‚Ü‚·Bw’è‚Å‚«‚é’l‚Í [0, 99] ‚Å‚·B\n
-      skip_step ‚ÍAw’è‚³‚ê‚½”‚Ìƒf[ƒ^‚ğ 1 ‚Â‚É‚Ü‚Æ‚ß‚é‚±‚Æ‚ÅAƒZƒ“ƒT‚©‚çóM‚·‚éƒf[ƒ^—Ê‚ğŒ¸‚ç‚µA‹——£æ“¾‚ğs‚¤ŠÖ”‚Ì‰“š«‚ğ‚‚ß‚é‚Æ‚«‚Ég‚¢‚Ü‚·B‚½‚¾‚µAƒf[ƒ^‚ğ‚Ü‚Æ‚ß‚é‚½‚ßA“¾‚ç‚ê‚éƒf[ƒ^‚Ì•ª‰ğ”\‚ÍŒ¸‚è‚Ü‚·B
+      skip_step ï¿½ÍAï¿½vï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½Âï¿½ï¿½ï¿½ï¿½wï¿½è‚µï¿½Ü‚ï¿½ï¿½Bï¿½wï¿½ï¿½Å‚ï¿½ï¿½ï¿½lï¿½ï¿½ [0, 99] ï¿½Å‚ï¿½ï¿½B\n
+      skip_step ï¿½ÍAï¿½wï¿½è‚³ï¿½ê‚½ï¿½ï¿½ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ 1 ï¿½Â‚É‚Ü‚Æ‚ß‚é‚±ï¿½Æ‚ÅAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ê‚ï¿½ï¿½ï¿½ï¿½ç‚µï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Öï¿½ï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½Æ‚ï¿½ï¿½Égï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Ü‚Æ‚ß‚é‚½ï¿½ßAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ì•ï¿½ï¿½ï¿½\ï¿½ÍŒï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      —á‚¦‚ÎˆÈ‰º‚Ì‚æ‚¤‚È‹——£ƒf[ƒ^‚ª“¾‚ç‚ê‚éê‡‚É
+      ï¿½á‚¦ï¿½ÎˆÈ‰ï¿½ï¿½Ì‚æ‚¤ï¿½È‹ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½ï¿½
       \verbatim
       100, 101, 102, 103, 104, 105, 106, 107, 108, 109
       \endverbatim
 
-      skip_step ‚É 2 ‚ğw’è‚·‚é‚ÆA“¾‚ç‚ê‚éƒf[ƒ^‚Í
+      skip_step ï¿½ï¿½ 2 ï¿½ï¿½ï¿½wï¿½è‚·ï¿½ï¿½ÆAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½
       \verbatim
       \endverbatim
 
-      ƒf[ƒ^‚ÍA‚Ü‚Æ‚ß‚éƒf[ƒ^‚Ì‚¤‚¿Aˆê”Ô¬‚³‚È’l‚Ìƒf[ƒ^‚ª—p‚¢‚ç‚ê‚Ü‚·B
+      ï¿½fï¿½[ï¿½^ï¿½ÍAï¿½Ü‚Æ‚ß‚ï¿½fï¿½[ï¿½^ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½Ôï¿½ï¿½ï¿½ï¿½È’lï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
       \~
       Example
@@ -502,107 +502,107 @@ extern "C" {
       \~
       \see urg_step_min_max(), urg_rad2step(), urg_deg2step()
     */
-    extern int urg_set_scanning_parameter(urg_t *urg, int first_step,
-                                          int last_step, int skip_step);
+    extern int urg_set_scanning_parameter(urg_t* urg, int first_step,
+        int last_step, int skip_step);
 
 
     /*!
       \~japanese
-      \brief ’ÊMƒf[ƒ^‚ÌƒTƒCƒY•ÏX
+      \brief ï¿½ÊMï¿½fï¿½[ï¿½^ï¿½ÌƒTï¿½Cï¿½Yï¿½ÏX
 
-      ‹——£ƒf[ƒ^‚ğƒZƒ“ƒT‚©‚çóM‚ÌÛ‚Ìƒf[ƒ^ƒTƒCƒY‚ğ•ÏX‚µ‚Ü‚·B
+      ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ÌÛ‚Ìƒfï¿½[ï¿½^ï¿½Tï¿½Cï¿½Yï¿½ï¿½ÏXï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      \param[in,out] urg URG ƒZƒ“ƒTŠÇ—
-      \param[in] data_byte ‹——£’l‚ğ•\Œ»‚·‚éƒf[ƒ^‚ÌƒoƒCƒg”
+      \param[in,out] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \param[in] data_byte ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìƒoï¿½Cï¿½gï¿½ï¿½
 
-      \retval 0 ¬Œ÷
-      \retval <0 ƒGƒ‰[
+      \retval 0 ï¿½ï¿½ï¿½ï¿½
+      \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 
-      data_byte ‚É‚Í
+      data_byte ï¿½É‚ï¿½
 
-      - URG_COMMUNICATION_3_BYTE ... ‹——£‚ğ 3 byte ‚Å•\Œ»‚·‚é
-      - URG_COMMUNICATION_2_BYTE ... ‹——£‚ğ 2 byte ‚Å•\Œ»‚·‚é
+      - URG_COMMUNICATION_3_BYTE ... ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+      - URG_COMMUNICATION_2_BYTE ... ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-      ‚ğw’è‚Å‚«‚Ü‚·B\n
-      ‰Šúó‘Ô‚Å‚Í‹——£‚ğ 3 byte ‚Å•\Œ»‚·‚é‚æ‚¤‚É‚È‚Á‚Ä‚¢‚Ü‚·B‚±‚Ìİ’è‚ğ 2 byte ‚Éİ’è‚·‚é‚±‚Æ‚ÅAƒZƒ“ƒT‚©‚çóM‚·‚éƒf[ƒ^”‚Í 2/3 ‚É‚È‚è‚Ü‚·B‚½‚¾‚µAæ“¾‚Å‚«‚é‹——£‚ÌÅ‘å’l‚ª 4095 ‚É‚È‚é‚½‚ßAŠÏ‘ª‚µ‚½‚¢‘ÎÛ‚ª 4 [m] ˆÈ“à‚Ì”ÍˆÍ‚É‘¶İ‚·‚éê‡‚Ì‚İ—˜—p‚µ‚Ä‰º‚³‚¢B
+      ï¿½ï¿½ï¿½wï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½B\n
+      ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚Å‚Í‹ï¿½ï¿½ï¿½ï¿½ï¿½ 3 byte ï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½É‚È‚ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½Ìİ’ï¿½ï¿½ 2 byte ï¿½Éİ’è‚·ï¿½é‚±ï¿½Æ‚ÅAï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ 2/3 ï¿½É‚È‚ï¿½Ü‚ï¿½ï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½æ“¾ï¿½Å‚ï¿½ï¿½é‹—ï¿½ï¿½ï¿½ÌÅ‘ï¿½lï¿½ï¿½ 4095 ï¿½É‚È‚é‚½ï¿½ßAï¿½Ï‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎÛ‚ï¿½ 4 [m] ï¿½È“ï¿½ï¿½Ì”ÍˆÍ‚É‘ï¿½ï¿½İ‚ï¿½ï¿½ï¿½ê‡ï¿½Ì‚İ—ï¿½ï¿½pï¿½ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
     */
-    extern int urg_set_communication_data_size(urg_t *urg,
-                                               urg_range_data_byte_t data_byte);
+    extern int urg_set_communication_data_size(urg_t* urg,
+        urg_range_data_byte_t data_byte);
 
 
-    /*! \~japanese ƒŒ[ƒU‚ğ”­Œõ‚³‚¹‚é */
-    extern int urg_laser_on(urg_t *urg);
+    /*! \~japanese ï¿½ï¿½ï¿½[ï¿½Uï¿½ğ”­Œï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_laser_on(urg_t* urg);
 
 
-    /*! \~japanese ƒŒ[ƒU‚ğÁ“”‚·‚é */
-    extern int urg_laser_off(urg_t *urg);
+    /*! \~japanese ï¿½ï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_laser_off(urg_t* urg);
 
 
-    /*! \~japanese ƒZƒ“ƒT‚ğÄ‹N“®‚·‚é */
-    extern int urg_reboot(urg_t *urg);
+    /*! \~japanese ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½Ä‹Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+    extern int urg_reboot(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚ğ’áÁ”ï“d—Í‚Ìó‘Ô‚É‘JˆÚ‚³‚¹‚é
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Í‚Ìï¿½Ô‚É‘Jï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½
 
-      ’áÁ”ï“d—Í‚Ìƒ‚[ƒh‚Å‚ÍAƒXƒLƒƒƒi‚Ì‰ñ“]‚ª’â~‚µŒv‘ª‚à’†’f‚³‚ê‚Ü‚·B
+      ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Í‚Ìƒï¿½ï¿½[ï¿½hï¿½Å‚ÍAï¿½Xï¿½Lï¿½ï¿½ï¿½iï¿½Ì‰ï¿½]ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 
-      - ’áÁ”ï“d—Í‚Ìƒ‚[ƒh
-        - ƒŒ[ƒU‚ªÁ“”‚µ‚ÄŒv‘ª‚ª’†’f‚³‚ê‚éB
-        - ƒXƒLƒƒƒi‚Ì‰ñ“]‚ª’â~‚·‚éB
+      - ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Í‚Ìƒï¿½ï¿½[ï¿½h
+        - ï¿½ï¿½ï¿½[ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄŒvï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½ï¿½B
+        - ï¿½Xï¿½Lï¿½ï¿½ï¿½iï¿½Ì‰ï¿½]ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½ï¿½B
 
-      ’áÁ”ï“d—Í‚Ìƒ‚[ƒh‚©‚ç”²‚¯‚é‚½‚ß‚É‚Í \ref urg_wakeup() ŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‰º‚³‚¢B
+      ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Í‚Ìƒï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ç”²ï¿½ï¿½ï¿½é‚½ï¿½ß‚É‚ï¿½ \ref urg_wakeup() ï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
 
       \see urg_wakeup()
     */
-    extern void urg_sleep(urg_t *urg);
+    extern void urg_sleep(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚ğ’áÁ”ï“d—Í‚Ìƒ‚[ƒh‚©‚ç’Êí‚Ìó‘Ô‚É‘JˆÚ‚³‚¹‚é
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½Í‚Ìƒï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½Êï¿½Ìï¿½Ô‚É‘Jï¿½Ú‚ï¿½ï¿½ï¿½ï¿½ï¿½
 
       \see urg_sleep()
     */
-    extern void urg_wakeup(urg_t *urg);
+    extern void urg_wakeup(urg_t* urg);
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚ªŒv‘ª‚Å‚«‚éó‘Ô‚©‚ğ•Ô‚·
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½Ô‚ï¿½
 
-      \retval 1 ƒZƒ“ƒT‚ªŒv‘ª‚Å‚«‚éó‘Ô‚É‚ ‚é
-      \retval 0 ƒZƒ“ƒT‚ªŒv‘ª‚Å‚«‚éó‘Ô‚É‚È‚¢
+      \retval 1 ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½
+      \retval 0 ï¿½Zï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½Ô‚É‚È‚ï¿½
 
-      ‹N“®’¼Œã‚ÅƒXƒLƒƒƒi‚Ì‰ñ“]‚ªˆÀ’è‚µ‚Ä‚¢‚È‚¢ê‡‚âA‰½‚ç‚©‚ÌƒGƒ‰[‚ÅŒv‘ª‚Å‚«‚È‚¢ê‡A‚±‚ÌŠÖ”‚Í 0 ‚ğ•Ô‚µ‚Ü‚·B
+      ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅƒXï¿½Lï¿½ï¿½ï¿½iï¿½Ì‰ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½è‚µï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½ï¿½Aï¿½ï¿½ï¿½ç‚©ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½ÅŒvï¿½ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½ï¿½ 0 ï¿½ï¿½Ô‚ï¿½ï¿½Ü‚ï¿½ï¿½B
     */
-    extern int urg_is_stable(urg_t *urg);
-
-
-    /*!
-      \~japanese
-      \brief ƒZƒ“ƒTŒ^®‚ğ•¶š—ñ‚Å•Ô‚·
-
-      ƒZƒ“ƒT‚ÌŒ^®‚ğ•¶š—ñ‚Å•Ô‚·B•Ô‚³‚ê‚é•¶š—ñ‚ÍƒZƒ“ƒTˆË‘¶‚Æ‚È‚éB
-
-      \param[in] urg URG ƒZƒ“ƒTŠÇ—
-
-      \return ƒZƒ“ƒTŒ^®‚Ì•¶š—ñ
-    */
-    extern const char *urg_sensor_product_type(urg_t *urg);
+    extern int urg_is_stable(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚ÌƒVƒŠƒAƒ‹ ID •¶š—ñ‚ğ•Ô‚·
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½^ï¿½ï¿½ï¿½ğ•¶ï¿½ï¿½ï¿½Å•Ô‚ï¿½
 
-      ƒZƒ“ƒT‚ÌƒVƒŠƒAƒ‹ ID •¶š—ñ‚ğ•Ô‚·B•Ô‚³‚ê‚é•¶š—ñ‚ÍƒZƒ“ƒTˆË‘¶‚Æ‚È‚éB
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌŒ^ï¿½ï¿½ï¿½ğ•¶ï¿½ï¿½ï¿½Å•Ô‚ï¿½ï¿½Bï¿½Ô‚ï¿½ï¿½ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Æ‚È‚ï¿½B
 
-      \param[in] urg URG ƒZƒ“ƒTŠÇ—
+      \param[in] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
-      \return ƒVƒŠƒAƒ‹ ID •¶š—ñ
+      \return ï¿½Zï¿½ï¿½ï¿½Tï¿½^ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½
     */
-    extern const char *urg_sensor_serial_id(urg_t *urg);
+    extern const char* urg_sensor_product_type(urg_t* urg);
+
+
+    /*!
+      \~japanese
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒVï¿½ï¿½ï¿½Aï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
+
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒVï¿½ï¿½ï¿½Aï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½Ô‚ï¿½ï¿½ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Æ‚È‚ï¿½B
+
+      \param[in] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+
+      \return ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ ID ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    */
+    extern const char* urg_sensor_serial_id(urg_t* urg);
 
     /*!
       \brief returns the vendor name
@@ -611,22 +611,22 @@ extern "C" {
 
       \return The vendor name
     */
-    extern const char *urg_sensor_vendor(urg_t *urg);
+    extern const char* urg_sensor_vendor(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚Ìƒo[ƒWƒ‡ƒ“•¶š—ñ‚ğ•Ô‚·
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½Ìƒoï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 
-      ƒZƒ“ƒT‚Ìƒ\ƒtƒgƒEƒFƒAEƒo[ƒWƒ‡ƒ“•¶š—ñ‚ğ•Ô‚·B•Ô‚³‚ê‚é•¶š—ñ‚ÍƒZƒ“ƒTˆË‘¶‚Æ‚È‚éB
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½Ìƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½Eï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½Ô‚ï¿½ï¿½ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Æ‚È‚ï¿½B
 
-      \param[in] urg URG ƒZƒ“ƒTŠÇ—
+      \param[in] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
 
-      \return ƒo[ƒWƒ‡ƒ“•¶š—ñ
+      \return ï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     */
-    extern const char *urg_sensor_firmware_version(urg_t *urg);
+    extern const char* urg_sensor_firmware_version(urg_t* urg);
 
-    extern const char *urg_sensor_firmware_date(urg_t *urg);
+    extern const char* urg_sensor_firmware_date(urg_t* urg);
 
     /*!
       \brief returns the protocol version
@@ -635,51 +635,51 @@ extern "C" {
 
       \return The current protocol version
     */
-    extern const char *urg_sensor_protocol_version(urg_t *urg);
+    extern const char* urg_sensor_protocol_version(urg_t* urg);
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚ÌƒXƒe[ƒ^ƒX•¶š—ñ‚ğ•Ô‚·
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
 
-      ƒZƒ“ƒT‚ÌƒXƒe[ƒ^ƒX•¶š—ñ‚ğ•Ô‚·B•Ô‚³‚ê‚é•¶š—ñ‚ÍƒZƒ“ƒTˆË‘¶‚Æ‚È‚éB
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½Ô‚ï¿½ï¿½ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Æ‚È‚ï¿½B
 
-      \param[in] urg URG ƒZƒ“ƒTŠÇ—
-      \return ƒXƒe[ƒ^ƒX•¶š—ñ
+      \param[in] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \return ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     */
-    extern const char *urg_sensor_status(urg_t *urg);
+    extern const char* urg_sensor_status(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief ƒZƒ“ƒT‚Ìó‘Ô‚ğ•Ô‚·
+      \brief ï¿½Zï¿½ï¿½ï¿½Tï¿½Ìï¿½Ô‚ï¿½Ô‚ï¿½
 
-      ƒZƒ“ƒT‚ÌƒXƒe[ƒ^ƒX•¶š—ñ‚ğ•Ô‚·B•Ô‚³‚ê‚é•¶š—ñ‚ÍƒZƒ“ƒTˆË‘¶‚Æ‚È‚éB
+      ï¿½Zï¿½ï¿½ï¿½Tï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½Ô‚ï¿½ï¿½ï¿½é•¶ï¿½ï¿½ï¿½ï¿½ÍƒZï¿½ï¿½ï¿½Tï¿½Ë‘ï¿½ï¿½Æ‚È‚ï¿½B
 
-      \param[in] urg URG ƒZƒ“ƒTŠÇ—
-      \return ó‘Ô‚ğ¦‚·•¶š—ñ
+      \param[in] urg URG ï¿½Zï¿½ï¿½ï¿½Tï¿½Ç—ï¿½
+      \return ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-      \attention ó‘Ô‚É‚Â‚¢‚Ä‚Í SCIP ‚Ì’ÊMd—l‘‚ğQÆ‚Ì‚±‚ÆB
+      \attention ï¿½ï¿½Ô‚É‚Â‚ï¿½ï¿½Ä‚ï¿½ SCIP ï¿½Ì’ÊMï¿½dï¿½lï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½Æ‚Ì‚ï¿½ï¿½ÆB
     */
-    extern const char *urg_sensor_state(urg_t *urg);
+    extern const char* urg_sensor_state(urg_t* urg);
 
 
     /*!
       \~japanese
-      \brief Œv‘ª—p‚ÌƒGƒ‰[ƒnƒ“ƒhƒ‰‚ğ“o˜^‚·‚é
+      \brief ï¿½vï¿½ï¿½ï¿½pï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½
 
-      ƒGƒ‰[ƒnƒ“ƒhƒ‰‚Í Gx, Mx Œn‚ÌƒRƒ}ƒ“ƒh‚Ì‰“š‚ª "00" ‚© "99" ˆÈŠO‚Ì‚Æ‚«‚ÉŒÄ‚Ño‚³‚ê‚éB
+      ï¿½Gï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ Gx, Mx ï¿½nï¿½ÌƒRï¿½}ï¿½ï¿½ï¿½hï¿½Ì‰ï¿½ï¿½ï¿½ï¿½ï¿½ "00" ï¿½ï¿½ "99" ï¿½ÈŠOï¿½Ì‚Æ‚ï¿½ï¿½ÉŒÄ‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½B
     */
-    extern void urg_set_error_handler(urg_t *urg, urg_error_handler handler);
+    extern void urg_set_error_handler(urg_t* urg, urg_error_handler handler);
 
 
     /*!
       \~japanese
-      \brief SCIP •¶š—ñ‚ÌƒfƒR[ƒh‚ğs‚¤
+      \brief SCIP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒfï¿½Rï¿½[ï¿½hï¿½ï¿½ï¿½sï¿½ï¿½
 
-      \param[in] data SCIP •¶š—ñ
-      \param[in] data ‚Ì byte ƒTƒCƒY
+      \param[in] data SCIP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+      \param[in] data ï¿½ï¿½ byte ï¿½Tï¿½Cï¿½Y
 
-      \retval ƒfƒR[ƒhŒã‚Ì”’l
+      \retval ï¿½fï¿½Rï¿½[ï¿½hï¿½ï¿½Ìï¿½ï¿½l
     */
     extern long urg_scip_decode(const char data[], int size);
 

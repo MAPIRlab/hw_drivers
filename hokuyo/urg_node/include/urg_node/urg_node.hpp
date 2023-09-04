@@ -28,9 +28,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * Author: Mike O'Driscoll
- */
+ /*
+  * Author: Mike O'Driscoll
+  */
 
 #ifndef URG_NODE__URG_NODE_HPP_
 #define URG_NODE__URG_NODE_HPP_
@@ -59,118 +59,118 @@
 
 namespace urg_node
 {
-class UrgNode : public rclcpp::Node
-{
-public:
-  explicit UrgNode(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
+    class UrgNode : public rclcpp::Node
+    {
+    public:
+        explicit UrgNode(const rclcpp::NodeOptions& node_options = rclcpp::NodeOptions());
 
-  virtual ~UrgNode();
+        virtual ~UrgNode();
 
-  /**
-   * @brief Start's the nodes threads to run the lidar.
-   */
-  void run();
+        /**
+         * @brief Start's the nodes threads to run the lidar.
+         */
+        void run();
 
-  /**
-   * @brief Trigger an update of the lidar's status
-   * publish the latest known information about the lidar on latched topic.
-   * @return True on update successful, false otherwise.
-   */
-  bool updateStatus();
+        /**
+         * @brief Trigger an update of the lidar's status
+         * publish the latest known information about the lidar on latched topic.
+         * @return True on update successful, false otherwise.
+         */
+        bool updateStatus();
 
-  void initSetup();
+        void initSetup();
 
-private:
-  bool connect();
+    private:
+        bool connect();
 
-  rcl_interfaces::msg::SetParametersResult param_change_callback(
-    const std::vector<rclcpp::Parameter> parameters);
+        rcl_interfaces::msg::SetParametersResult param_change_callback(
+            const std::vector<rclcpp::Parameter> parameters);
 
-  void calibrate_time_offset();
+        void calibrate_time_offset();
 
-  void updateDiagnostics();
+        void updateDiagnostics();
 
-  void populateDiagnosticsStatus(diagnostic_updater::DiagnosticStatusWrapper & stat);
+        void populateDiagnosticsStatus(diagnostic_updater::DiagnosticStatusWrapper& stat);
 
-  void scanThread();
+        void scanThread();
 
-  void statusCallback(
-    const std::shared_ptr<rmw_request_id_t> requestHeader,
-    const std_srvs::srv::Trigger::Request::SharedPtr req,
-    const std_srvs::srv::Trigger::Response::SharedPtr res);
+        void statusCallback(
+            const std::shared_ptr<rmw_request_id_t> requestHeader,
+            const std_srvs::srv::Trigger::Request::SharedPtr req,
+            const std_srvs::srv::Trigger::Response::SharedPtr res);
 
-  std::thread run_thread_;
-  std::thread diagnostics_thread_;
-  std::thread scan_thread_;
+        std::thread run_thread_;
+        std::thread diagnostics_thread_;
+        std::thread scan_thread_;
 
-  std::unique_ptr<urg_node::URGCWrapper> urg_;
+        std::unique_ptr<urg_node::URGCWrapper> urg_;
 
-  diagnostic_updater::Updater diagnostic_updater_;
-  std::unique_ptr<diagnostic_updater::HeaderlessTopicDiagnostic> laser_freq_;
-  std::unique_ptr<diagnostic_updater::HeaderlessTopicDiagnostic> echoes_freq_;
+        diagnostic_updater::Updater diagnostic_updater_;
+        std::unique_ptr<diagnostic_updater::HeaderlessTopicDiagnostic> laser_freq_;
+        std::unique_ptr<diagnostic_updater::HeaderlessTopicDiagnostic> echoes_freq_;
 
-  std::mutex lidar_mutex_;
+        std::mutex lidar_mutex_;
 
-  /*
-   * Non-const device properties.
-   * If you poll the driver for these
-   * while scanning is running, then the scan will probably fail.
-  */
-  std::string device_status_;
-  std::string vendor_name_;
-  std::string product_name_;
-  std::string firmware_version_;
-  std::string firmware_date_;
-  std::string protocol_version_;
-  std::string device_id_;
-  uint16_t error_code_;
-  int error_count_;
-  int error_limit_;
-  bool lockout_status_;
+        /*
+         * Non-const device properties.
+         * If you poll the driver for these
+         * while scanning is running, then the scan will probably fail.
+         */
+        std::string device_status_;
+        std::string vendor_name_;
+        std::string product_name_;
+        std::string firmware_version_;
+        std::string firmware_date_;
+        std::string protocol_version_;
+        std::string device_id_;
+        uint16_t error_code_;
+        int error_count_;
+        int error_limit_;
+        bool lockout_status_;
 
-  double freq_min_;
-  bool close_diagnostics_;
-  bool close_scan_;
+        double freq_min_;
+        bool close_diagnostics_;
+        bool close_scan_;
 
-  std::string ip_address_;
-  int ip_port_;
-  std::string serial_port_;
-  int serial_baud_;
+        std::string ip_address_;
+        int ip_port_;
+        std::string serial_port_;
+        int serial_baud_;
 
-  bool calibrate_time_;
-  bool synchronize_time_;
-  bool publish_intensity_;
-  bool publish_multiecho_;
-  double diagnostics_tolerance_;
-  double diagnostics_window_time_;
-  bool detailed_status_;
-  double angle_min_;
-  double angle_max_;
-  /**
-   * Divide the number of rays per scan by cluster_ (if cluster_ == 10, you get 1/10 ray per scan)
-   * */
-  int cluster_;  // default : 1, range : 1 to 100
-  /** Reduce the rate of scans */
-  int skip_;  // default : 0, range : 0 to 9
+        bool calibrate_time_;
+        bool synchronize_time_;
+        bool publish_intensity_;
+        bool publish_multiecho_;
+        double diagnostics_tolerance_;
+        double diagnostics_window_time_;
+        bool detailed_status_;
+        double angle_min_;
+        double angle_max_;
+        /**
+         * Divide the number of rays per scan by cluster_ (if cluster_ == 10, you get 1/10 ray per scan)
+         * */
+        int cluster_; // default : 1, range : 1 to 100
+        /** Reduce the rate of scans */
+        int skip_; // default : 0, range : 0 to 9
 
-  /** The default user latency value. */
-  double default_user_latency_;
+        /** The default user latency value. */
+        double default_user_latency_;
 
-  /** The laser tf frame id. */
-  std::string laser_frame_id_;
-  std::string laser_topic_name_;
+        /** The laser tf frame id. */
+        std::string laser_frame_id_;
+        std::string laser_topic_name_;
 
-  volatile bool service_yield_;
+        volatile bool service_yield_;
 
-  rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr laser_pub_;
-  std::unique_ptr<laser_proc::LaserPublisher> echoes_pub_;
-  rclcpp::Publisher<urg_node_msgs::msg::Status>::SharedPtr status_pub_;
+        rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr laser_pub_;
+        std::unique_ptr<laser_proc::LaserPublisher> echoes_pub_;
+        rclcpp::Publisher<urg_node_msgs::msg::Status>::SharedPtr status_pub_;
 
-  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr status_service_;
+        rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr status_service_;
 
-  //  Need to hold reference to callback, or it gets deregistered
-  rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
-};
-}  // namespace urg_node
+        //  Need to hold reference to callback, or it gets deregistered
+        rclcpp::node_interfaces::OnSetParametersCallbackHandle::SharedPtr parameters_callback_handle_;
+    };
+} // namespace urg_node
 
-#endif  // URG_NODE__URG_NODE_HPP_
+#endif // URG_NODE__URG_NODE_HPP_

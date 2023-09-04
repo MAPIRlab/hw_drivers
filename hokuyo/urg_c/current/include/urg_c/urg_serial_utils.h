@@ -3,7 +3,7 @@
 
 /*!
   \file
-  \brief ƒVƒŠƒAƒ‹—p‚Ì•â•ŠÖ”
+  \brief ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½pï¿½Ì•â•ï¿½Öï¿½
 
   \author Satofumi KAMIMURA
 
@@ -11,20 +11,20 @@
 */
 
 
-//! ƒVƒŠƒAƒ‹ƒ|[ƒg‚ğŒŸõ‚·‚é
+//! ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 extern int urg_serial_find_port(void);
 
 
-//! ŒŸõ‚µ‚½ƒVƒŠƒAƒ‹ƒ|[ƒg–¼‚ğ•Ô‚·
-extern const char *urg_serial_port_name(int index);
+//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
+extern const char* urg_serial_port_name(int index);
 
 
 /*!
-  \brief ƒ|[ƒg‚ª URG ‚©‚Ç‚¤‚©
+  \brief ï¿½|ï¿½[ï¿½gï¿½ï¿½ URG ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 
-  \retval 1 URG ‚Ìƒ|[ƒg
-  \retval 0 •s–¾
-  \retval <0 ƒGƒ‰[
+  \retval 1 URG ï¿½Ìƒ|ï¿½[ï¿½g
+  \retval 0 ï¿½sï¿½ï¿½
+  \retval <0 ï¿½Gï¿½ï¿½ï¿½[
 */
 extern int urg_serial_is_urg_port(int index);
 
