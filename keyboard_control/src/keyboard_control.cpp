@@ -15,8 +15,7 @@
 class keyboard : public rclcpp::Node
 {
 public:
-    keyboard()
-        : Node("keyboard_control")
+    keyboard() : Node("keyboard_control")
     {
         // Read parameters and set default values
         this->declare_parameter<float>("linear_v", 2.4);
@@ -59,7 +58,7 @@ public:
         puts("Press q to stop the program");
 
         // Endless loop
-        for (;;)
+        while (rclcpp::ok())
         {
             // get the next event from the keyboard
             if (read(kfd, &c, 1) < 0)

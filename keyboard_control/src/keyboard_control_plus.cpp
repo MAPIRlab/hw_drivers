@@ -81,7 +81,7 @@ public:
         printf("Press q to stop the program\n");
 
         // Endless loop
-        while (!exit_prog)
+        while (rclcpp::ok() && !exit_prog)
         {
             // similar to getchat, but non-blocking
             if (_kbhit())
