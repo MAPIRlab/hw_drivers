@@ -29,7 +29,7 @@ def launch_setup(context, *args, **kwargs):
             parameters=[{
                 "motor_configs": os.path.join(xsturret_control_dir, 'config', 'wxxms.yaml'),
                 "mode_configs": os.path.join(xsturret_control_dir, 'config', 'modes.yaml'),
-                "load_configs": "true",
+                "load_configs": True,
             }]
             ),
     ]
