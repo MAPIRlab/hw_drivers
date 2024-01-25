@@ -1,8 +1,12 @@
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from launch.frontend.parse_substitution import parse_substitution
 
 def generate_launch_description():
 
+    use_odom = DeclareLaunchArgument('publish_odom', default_value="True")
     giraff = Node (
         package='giraff_ros2_driver',
         executable='giraff_node',
@@ -10,7 +14,7 @@ def generate_launch_description():
         output='screen',
         parameters=[
         {'giraff_avr_port':'/dev/ttyS1'},
-        {'publish_odometry_over_tf':True},
+        {'publish_odometry_over_tf':parse_substitution('$(var publish_odom)')},
         {'publish_other_tf':True},
         {'odom_topic':'odom'},
         {'freq': 100.0},
@@ -39,5 +43,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        use_odom,
         giraff
     ])
