@@ -4,6 +4,3 @@
 [submodule "ouster-ros"]
 	path = ouster-ros
 	url = git@github.com:MAPIRlab/ouster-ros.git
-[submodule "hunter_ros"]
-	path = hunter_ros
-	url = git@github.com:mapir-uma/hunter_ros.git
