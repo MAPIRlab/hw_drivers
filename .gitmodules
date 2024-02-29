@@ -4,3 +4,6 @@
 [submodule "ouster-ros"]
 	path = ouster-ros
 	url = git@github.com:MAPIRlab/ouster-ros.git
+[submodule "hunter_ros2"]
+	path = hunter_ros2
+	url = git@github.com:MAPIRlab/hunter_ros2.git
