@@ -7,3 +7,6 @@
 [submodule "hunter_ros2"]
 	path = hunter_ros2
 	url = git@github.com:MAPIRlab/hunter_ros2.git
+[submodule "hunter_ugv_sdk"]
+	path = hunter_ugv_sdk
+	url = git@github.com:MAPIRlab/hunter_ugv_sdk.git
