@@ -30,8 +30,11 @@ def generate_launch_description():
     launch_description.add_action(param_file_path)
 
     hokuyo_node = Node(
-        package='urg_node', node_executable='urg_node', output='screen',
-        parameters=[LaunchConfiguration('param')]
+        package='urg_node', 
+        executable='urg_node_driver', 
+        name="urg_node", 
+        output='screen',
+        parameters=[LaunchConfiguration('param')],
         )
 
     launch_description.add_action(hokuyo_node)

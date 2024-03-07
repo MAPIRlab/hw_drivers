@@ -21,13 +21,13 @@ def launch_setup(context, *args, **kwargs):
             parameters=[{
                 "linear_v_inc": 0.1,
                 "angular_v_inc": 0.3,
-                "publish_topic": "/hunter/cmd_vel"
+                "publish_topic": "/cmd_vel"
             }]   
         ),
     ]    
     
 
-    actions=[PushRosNamespace(namespace)]
+    actions=[]
     actions.extend(keyboard_control)    
     return[
         GroupAction
@@ -48,6 +48,5 @@ def generate_launch_description():
             default_value=["info"],  #debug, info
             description="Logging level",
             ),
-        DeclareLaunchArgument('namespace', default_value="hunter"),
         OpaqueFunction(function = launch_setup)
     ])
