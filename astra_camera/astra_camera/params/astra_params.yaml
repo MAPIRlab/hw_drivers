@@ -17,9 +17,11 @@ depth_fps: 30
 enable_depth: true
 
 # 是否开启D2C对齐(硬件对齐) | open depth to color alignment （hardware alignment）
-depth_align: false
+depth_align: true
 # 设备序列号，多相机的时候需要填写
-serial_number: ""
+#serial_number: "18072430022" # overhead
+serial_number: "18072430134" # neck
+#serial_number: "" # leave empty to auto-select
 number_of_devices: 1
 # UVC 相机，目前只有 dabai, dabi DCW 需要 | UVC camera , only for dabai , dabai DCW serial
 uvc_camera.enable: false

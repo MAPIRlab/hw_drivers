@@ -36,6 +36,7 @@
 #include <sensor_msgs/image_encodings.hpp>
 #include <image_geometry/pinhole_camera_model.h>
 #include "astra_camera/point_cloud_proc/point_cloud_xyz.h"
+#include <cv_bridge/cv_bridge.h>
 
 namespace astra_camera {
 
@@ -100,24 +101,26 @@ void PointCloudXyzNode::convertDepth(const sensor_msgs::msg::Image::ConstSharedP
 // Handles (un)subscribing when clients (un)subscribe
 void PointCloudXyzNode::connectCb() {
   std::lock_guard<std::mutex> lock(connect_mutex_);
-  if (!sub_depth_) {
-    auto custom_qos = rmw_qos_profile_sensor_data;
-    custom_qos.depth = queue_size_;
+  //auto custom_qos = rmw_qos_profile_sensor_data;
+  //custom_qos.depth = queue_size_;
 
-    sub_depth_ = image_transport::create_camera_subscription(
-        this, "depth/image_raw",
-        [this](const sensor_msgs::msg::Image::ConstSharedPtr &msg,
-               const sensor_msgs::msg::CameraInfo::ConstSharedPtr &info) { depthCb(msg, info); },
-        "raw", custom_qos);
-  }
+  image_transport::TransportHints depth_hints(this, "raw", "depth_image_transport");
+  sub_depth_.subscribe(this, "depth/image_raw", rmw_qos_profile_default);
+  sub_info_.subscribe(this, "depth/camera_info", rmw_qos_profile_default);
+  
+  sync_ = std::make_shared<Synchronizer>(SyncPolicy(queue_size_), sub_depth_, sub_info_);
+  sync_->registerCallback(std::bind(&PointCloudXyzNode::depthCb, this, std::placeholders::_1,
+                                    std::placeholders::_2));
 }
 
 void PointCloudXyzNode::depthCb(const Image::ConstSharedPtr &depth_msg,
                                 const CameraInfo::ConstSharedPtr &info_msg) {
+  sensor_msgs::msg::Image::ConstSharedPtr depth_image = depth_msg;
+
   auto cloud_msg = std::make_shared<PointCloud2>();
-  cloud_msg->header = depth_msg->header;
-  cloud_msg->height = depth_msg->height;
-  cloud_msg->width = depth_msg->width;
+  cloud_msg->header = depth_image->header;
+  cloud_msg->height = depth_image->height;
+  cloud_msg->width = depth_image->width;
   cloud_msg->is_dense = false;
   cloud_msg->is_bigendian = false;
 
@@ -128,12 +131,13 @@ void PointCloudXyzNode::depthCb(const Image::ConstSharedPtr &depth_msg,
   model_.fromCameraInfo(info_msg);
 
   // Convert Depth Image to Pointcloud
-  if (depth_msg->encoding == enc::TYPE_16UC1) {
-    convertDepth<uint16_t>(depth_msg, cloud_msg, model_);
-  } else if (depth_msg->encoding == enc::TYPE_32FC1) {
-    convertDepth<float>(depth_msg, cloud_msg, model_);
+  if (depth_image->encoding == enc::TYPE_16UC1 || depth_image->encoding == enc::MONO16) {
+    convertDepth<uint16_t>(depth_image, cloud_msg, model_);
+  } else if (depth_image->encoding == enc::TYPE_32FC1) {
+    convertDepth<float>(depth_image, cloud_msg, model_);
   } else {
-    RCLCPP_ERROR(logger_, "Depth image has unsupported encoding [%s]", depth_msg->encoding.c_str());
+    RCLCPP_ERROR(logger_, "Depth image has unsupported encoding [%s]",
+                 depth_image->encoding.c_str());
     return;
   }
 

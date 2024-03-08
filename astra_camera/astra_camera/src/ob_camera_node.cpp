@@ -266,7 +266,7 @@ void OBCameraNode::setupConfig() {
   unit_step_size_[DEPTH] = sizeof(uint16_t);
   format_[DEPTH] = openni::PIXEL_FORMAT_DEPTH_1_MM;
   image_format_[DEPTH] = CV_16UC1;
-  encoding_[DEPTH] = sensor_msgs::image_encodings::TYPE_16UC1;
+  encoding_[DEPTH] = sensor_msgs::image_encodings::MONO16;
 
   stream_name_[COLOR] = "color";
   unit_step_size_[COLOR] = 3;
@@ -337,12 +337,18 @@ void OBCameraNode::setupPublishers() {
   for (const auto& stream_index : IMAGE_STREAMS) {
     if (enable_[stream_index]) {
       std::string name = stream_name_[stream_index];
-      std::string topic = name + "/image_raw";
+      
+      std::string topic_raw = name + "/image_raw";
       image_publishers_[stream_index] =
-          node_->create_publisher<sensor_msgs::msg::Image>(topic, rclcpp::QoS{1});
-      topic = name + "/camera_info";
+          node_->create_publisher<Image>(topic_raw, rclcpp::QoS{1});
+
+      std::string topic_compressed = name + "/image_compressed";
+      compressed_image_publishers_[stream_index] =
+          node_->create_publisher<CompressedImage>(topic_compressed, rclcpp::QoS{1});
+
+      std::string topic_info = name + "/camera_info";
       camera_info_publishers_[stream_index] =
-          node_->create_publisher<CameraInfo>(topic, rclcpp::QoS{1});
+          node_->create_publisher<CameraInfo>(topic_info, rclcpp::QoS{1});
     }
   }
   extrinsics_publisher_ = node_->create_publisher<Extrinsics>("extrinsic/depth_to_color",
@@ -460,24 +466,47 @@ void OBCameraNode::onNewFrameCallback(const openni::VideoFrameRef& frame,
     cv::resize(image, scaled_image, cv::Size(width * depth_scale_, height * depth_scale_), 0, 0,
                cv::INTER_NEAREST);
   }
-  auto image_msg = cv_bridge::CvImage(std_msgs::msg::Header(), encoding_.at(stream_index),
-                                      stream_index == DEPTH ? scaled_image : image)
-                       .toImageMsg();
-  CHECK_NOTNULL(image_msg);
+  
+  width = stream_index == DEPTH ? width * depth_scale_ : width;
+  height = stream_index == DEPTH ? height * depth_scale_ : height;
   auto timestamp = node_->now();
-  image_msg->header.stamp = timestamp;
-  image_msg->header.frame_id =
-      depth_align_ ? depth_aligned_frame_id_[stream_index] : optical_frame_id_[stream_index];
-  image_msg->width = stream_index == DEPTH ? width * depth_scale_ : width;
-  image_msg->height = stream_index == DEPTH ? height * depth_scale_ : height;
-  image_msg->step = image_msg->width * unit_step_size_[stream_index];
-  image_msg->is_bigendian = false;
-  image_publisher->publish(*image_msg);
+
+  //publish raw image
+  {
+    auto image_msg = cv_bridge::CvImage(std_msgs::msg::Header(), encoding_.at(stream_index),
+                                      stream_index == DEPTH ? scaled_image : image)
+                        .toImageMsg();
+    CHECK_NOTNULL(image_msg);
+    image_msg->header.stamp = timestamp;
+    image_msg->header.frame_id =
+        depth_align_ ? depth_aligned_frame_id_[stream_index] : optical_frame_id_[stream_index];
+
+
+    image_msg->width = width;
+    image_msg->height = height;
+    image_msg->step = image_msg->width * unit_step_size_[stream_index];
+    image_msg->is_bigendian = false;
+
+    image_publisher->publish(*image_msg);
+  }
+
+  //publish compressed version of the image
+  {
+    auto compressed_image_msg = cv_bridge::CvImage(std_msgs::msg::Header(), encoding_.at(stream_index),
+                                        stream_index == DEPTH ? scaled_image : image)
+                        .toCompressedImageMsg(cv_bridge::PNG);
+    CHECK_NOTNULL(compressed_image_msg);
+    compressed_image_msg->header.stamp = timestamp;
+    compressed_image_msg->header.frame_id =
+        depth_align_ ? depth_aligned_frame_id_[stream_index] : optical_frame_id_[stream_index];
+    compressed_image_publishers_.at(stream_index)->publish(*compressed_image_msg);
+  }
+
   auto camera_info = stream_index == COLOR ? getColorCameraInfo() : getDepthCameraInfo();
-  if (camera_info->width != static_cast<uint32_t>(image_msg->width) ||
-      camera_info->height != static_cast<uint32_t>(image_msg->height)) {
-    camera_info->width = image_msg->width;
-    camera_info->height = image_msg->height;
+  if (camera_info->width != static_cast<uint32_t>(width) ||
+      camera_info->height != static_cast<uint32_t>(height)) {
+    camera_info->width = width;
+    camera_info->height = height;
   }
   camera_info->header.stamp = timestamp;
   camera_info->header.frame_id =

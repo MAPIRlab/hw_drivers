@@ -38,12 +38,20 @@
 #include <sensor_msgs/point_cloud2_iterator.hpp>
 #include <memory>
 #include "depth_traits.h"
+#include <message_filters/subscriber.h>
+#include <message_filters/synchronizer.h>
+#include <message_filters/sync_policies/exact_time.h>
+#include <message_filters/sync_policies/approximate_time.h>
+#include <image_transport/subscriber_filter.hpp>
+#include "astra_camera/DefineImageType.hpp"
 
 namespace astra_camera {
 
 namespace enc = sensor_msgs::image_encodings;
 
 class PointCloudXyzNode : public rclcpp::Node {
+  using PointCloud2 = sensor_msgs::msg::PointCloud2;
+  using CameraInfo = sensor_msgs::msg::CameraInfo;
  public:
   explicit PointCloudXyzNode(const rclcpp::NodeOptions& options);
 
@@ -53,12 +61,15 @@ class PointCloudXyzNode : public rclcpp::Node {
                            const image_geometry::PinholeCameraModel& model, double range_max = 0.0);
 
  private:
-  using PointCloud2 = sensor_msgs::msg::PointCloud2;
-  using Image = sensor_msgs::msg::Image;
-  using CameraInfo = sensor_msgs::msg::CameraInfo;
 
   // Subscriptions
-  image_transport::CameraSubscriber sub_depth_;
+  //image_transport::CameraSubscriber sub_depth_;
+  message_filters::Subscriber<Image> sub_depth_;
+  message_filters::Subscriber<CameraInfo> sub_info_;
+
+  using SyncPolicy = message_filters::sync_policies::ApproximateTime<Image, CameraInfo>;
+  using Synchronizer = message_filters::Synchronizer<SyncPolicy>;
+  std::shared_ptr<Synchronizer> sync_;
   int queue_size_;
 
   // Publications
