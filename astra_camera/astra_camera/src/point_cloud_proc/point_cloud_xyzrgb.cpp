@@ -47,6 +47,8 @@
 #include <string>
 #include <vector>
 #include "astra_camera/point_cloud_proc/point_cloud_xyzrgb.h"
+#include <cv_bridge/cv_bridge.h>
+
 namespace astra_camera {
 
 PointCloudXyzrgbNode::PointCloudXyzrgbNode(const rclcpp::NodeOptions& options)
@@ -54,6 +56,7 @@ PointCloudXyzrgbNode::PointCloudXyzrgbNode(const rclcpp::NodeOptions& options)
   // Read parameters
   int queue_size = static_cast<int>(declare_parameter<int>("queue_size", 5));
   bool use_exact_sync = declare_parameter<bool>("exact_sync", false);
+  connectCb();
 
   // Synchronize inputs. Topic subscriptions happen on demand in the connection callback.
   if (use_exact_sync) {
@@ -65,16 +68,15 @@ PointCloudXyzrgbNode::PointCloudXyzrgbNode(const rclcpp::NodeOptions& options)
   } else {
     sync_ = std::make_shared<Synchronizer>(SyncPolicy(queue_size), sub_depth_, sub_rgb_, sub_info_);
     sync_->registerCallback(std::bind(&PointCloudXyzrgbNode::imageCb, this, std::placeholders::_1,
-                                      std::placeholders::_2, std::placeholders::_3));
+                                      std::placeholders::_2, std::placeholders::_3)); 
   }
 
   // Monitor whether anyone is subscribed to the output
   // TODO(ros2) Implement when SubscriberStatusCallback is available
   // ros::SubscriberStatusCallback connect_cb = boost::bind(&PointCloudXyzrgbNode::connectCb, this);
-  connectCb();
   // TODO(ros2) Implement when SubscriberStatusCallback is available
   // Make sure we don't enter connectCb() between advertising and assigning to pub_point_cloud_
-  std::lock_guard<std::mutex> lock(connect_mutex_);
+  //std::lock_guard<std::mutex> lock(connect_mutex_);
   // TODO(ros2) Implement connect_cb when SubscriberStatusCallback is available
   pub_point_cloud_ = create_publisher<PointCloud2>("depth/color/points", rclcpp::QoS{1});
   // TODO(ros2) Implement connect_cb when SubscriberStatusCallback is available
@@ -100,19 +102,18 @@ void PointCloudXyzrgbNode::convertRgb(const sensor_msgs::msg::Image::ConstShared
 }
 // Handles (un)subscribing when clients (un)subscribe
 void PointCloudXyzrgbNode::connectCb() {
-  std::lock_guard<std::mutex> lock(connect_mutex_);
+  //std::lock_guard<std::mutex> lock(connect_mutex_);
   // TODO(ros2) Implement getNumSubscribers when rcl/rmw support it
   // parameter for depth_image_transport hint
   std::string depth_image_transport_param = "depth_image_transport";
   image_transport::TransportHints depth_hints(this, "raw", depth_image_transport_param);
 
   // depth image can use different transport.(e.g. compressedDepth)
-  sub_depth_.subscribe(this, "depth/image_raw", depth_hints.getTransport(),
-                       rmw_qos_profile_default);
+  sub_depth_.subscribe(this, "depth/image_raw", rmw_qos_profile_default);
 
   // rgb uses normal ros transport hints.
   image_transport::TransportHints hints(this, "raw");
-  sub_rgb_.subscribe(this, "color/image_raw", hints.getTransport(), rmw_qos_profile_default);
+  sub_rgb_.subscribe(this, "color/image_raw", rmw_qos_profile_default);
   sub_info_.subscribe(this, "color/camera_info", rmw_qos_profile_default);
 }
 
@@ -133,12 +134,16 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
   model_.fromCameraInfo(info_msg);
 
   // Check if the input image has to be resized
+
   Image::ConstSharedPtr rgb_msg = rgb_msg_in;
-  if (depth_msg->width != rgb_msg->width || depth_msg->height != rgb_msg->height) {
+  sensor_msgs::msg::Image::ConstSharedPtr rgb_image = rgb_msg;
+  sensor_msgs::msg::Image::ConstSharedPtr depth_image = depth_msg;
+
+  if (depth_image->width != rgb_image->width || depth_image->height != rgb_image->height) {
     CameraInfo info_msg_tmp = *info_msg;
-    info_msg_tmp.width = depth_msg->width;
-    info_msg_tmp.height = depth_msg->height;
-    float ratio = static_cast<float>(depth_msg->width) / static_cast<float>(rgb_msg->width);
+    info_msg_tmp.width = depth_image->width;
+    info_msg_tmp.height = depth_image->height;
+    float ratio = static_cast<float>(depth_image->width) / static_cast<float>(rgb_image->width);
     info_msg_tmp.k[0] *= ratio;
     info_msg_tmp.k[2] *= ratio;
     info_msg_tmp.k[4] *= ratio;
@@ -151,7 +156,7 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
 
     cv_bridge::CvImageConstPtr cv_ptr;
     try {
-      cv_ptr = cv_bridge::toCvShare(rgb_msg, rgb_msg->encoding);
+      cv_ptr = cv_bridge::toCvShare(rgb_image);
     } catch (cv_bridge::Exception& e) {
       RCLCPP_ERROR(logger_, "cv_bridge exception: %s", e.what());
       return;
@@ -160,19 +165,19 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
     cv_rsz.header = cv_ptr->header;
     cv_rsz.encoding = cv_ptr->encoding;
     // FIXME:
-    int end_raw = std::min<int>(depth_msg->height / ratio, rgb_msg->height);
+    int end_raw = std::min<int>(depth_image->height / ratio, rgb_image->height);
     cv::resize(cv_ptr->image.rowRange(0, end_raw), cv_rsz.image,
-               cv::Size(depth_msg->width, depth_msg->height));
-    if ((rgb_msg->encoding == enc::RGB8) || (rgb_msg->encoding == enc::BGR8) ||
-        (rgb_msg->encoding == enc::MONO8)) {
-      rgb_msg = cv_rsz.toImageMsg();
+               cv::Size(depth_image->width, depth_image->height));
+    if ((rgb_image->encoding == enc::RGB8) || (rgb_image->encoding == enc::BGR8) ||
+        (rgb_image->encoding == enc::MONO8)) {
+      rgb_image = cv_rsz.toImageMsg();
     } else {
-      rgb_msg = cv_bridge::toCvCopy(cv_rsz.toImageMsg(), enc::RGB8)->toImageMsg();
+      rgb_image = cv_bridge::toCvCopy(cv_rsz.toImageMsg(), enc::RGB8)->toImageMsg();
     }
 
     RCLCPP_ERROR_THROTTLE(logger_, *get_clock(), 50000,
                           "Depth resolution (%ux%u) does not match RGB resolution (%ux%u)",
-                          depth_msg->width, depth_msg->height, rgb_msg->width, rgb_msg->height);
+                          depth_image->width, depth_image->height, rgb_image->width, rgb_image->height);
     return;
   } else {
     rgb_msg = rgb_msg_in;
@@ -180,26 +185,26 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
 
   // Supported color encodings: RGB8, BGR8, MONO8
   int red_offset, green_offset, blue_offset, color_step;
-  if (rgb_msg->encoding == enc::RGB8) {
+  if (rgb_image->encoding == enc::RGB8) {
     red_offset = 0;
     green_offset = 1;
     blue_offset = 2;
     color_step = 3;
-  } else if (rgb_msg->encoding == enc::BGR8) {
+  } else if (rgb_image->encoding == enc::BGR8) {
     red_offset = 2;
     green_offset = 1;
     blue_offset = 0;
     color_step = 3;
-  } else if (rgb_msg->encoding == enc::MONO8) {
+  } else if (rgb_image->encoding == enc::MONO8) {
     red_offset = 0;
     green_offset = 0;
     blue_offset = 0;
     color_step = 1;
   } else {
     try {
-      rgb_msg = cv_bridge::toCvCopy(rgb_msg, enc::RGB8)->toImageMsg();
+      rgb_image = cv_bridge::toCvCopy(rgb_image, enc::RGB8)->toImageMsg();
     } catch (cv_bridge::Exception& e) {
-      RCLCPP_ERROR(logger_, "Unsupported encoding [%s]: %s", rgb_msg->encoding.c_str(), e.what());
+      RCLCPP_ERROR(logger_, "Unsupported encoding [%s]: %s", rgb_image->encoding.c_str(), e.what());
       return;
     }
     red_offset = 0;
@@ -209,9 +214,9 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
   }
 
   auto cloud_msg = std::make_shared<PointCloud2>();
-  cloud_msg->header = depth_msg->header;  // Use depth image time stamp
-  cloud_msg->height = depth_msg->height;
-  cloud_msg->width = depth_msg->width;
+  cloud_msg->header = depth_image->header;  // Use depth image time stamp
+  cloud_msg->height = depth_image->height;
+  cloud_msg->width = depth_image->width;
   cloud_msg->is_dense = false;
   cloud_msg->is_bigendian = false;
 
@@ -219,27 +224,26 @@ void PointCloudXyzrgbNode::imageCb(const Image::ConstSharedPtr& depth_msg,
   pcd_modifier.setPointCloud2FieldsByString(2, "xyz", "rgb");
 
   // Convert Depth Image to Pointcloud
-  if (depth_msg->encoding == enc::TYPE_16UC1) {
-    PointCloudXyzNode::convertDepth<uint16_t>(depth_msg, cloud_msg, model_);
-  } else if (depth_msg->encoding == enc::TYPE_32FC1) {
-    PointCloudXyzNode::convertDepth<float>(depth_msg, cloud_msg, model_);
+  if (depth_image->encoding == enc::TYPE_16UC1 || depth_image->encoding == enc::MONO16) {
+    PointCloudXyzNode::convertDepth<uint16_t>(depth_image, cloud_msg, model_);
+  } else if (depth_image->encoding == enc::TYPE_32FC1) {
+    PointCloudXyzNode::convertDepth<float>(depth_image, cloud_msg, model_);
   } else {
-    RCLCPP_ERROR(logger_, "Depth image has unsupported encoding [%s]", depth_msg->encoding.c_str());
+    RCLCPP_ERROR(logger_, "Depth image has unsupported encoding [%s]", depth_image->encoding.c_str());
     return;
   }
 
   // Convert RGB
-  if (rgb_msg->encoding == enc::RGB8) {
-    convertRgb(rgb_msg, cloud_msg, red_offset, green_offset, blue_offset, color_step);
-  } else if (rgb_msg->encoding == enc::BGR8) {
-    convertRgb(rgb_msg, cloud_msg, red_offset, green_offset, blue_offset, color_step);
-  } else if (rgb_msg->encoding == enc::MONO8) {
-    convertRgb(rgb_msg, cloud_msg, red_offset, green_offset, blue_offset, color_step);
+  if (rgb_image->encoding == enc::RGB8) {
+    convertRgb(rgb_image, cloud_msg, red_offset, green_offset, blue_offset, color_step);
+  } else if (rgb_image->encoding == enc::BGR8) {
+    convertRgb(rgb_image, cloud_msg, red_offset, green_offset, blue_offset, color_step);
+  } else if (rgb_image->encoding == enc::MONO8) {
+    convertRgb(rgb_image, cloud_msg, red_offset, green_offset, blue_offset, color_step);
   } else {
-    RCLCPP_ERROR(logger_, "RGB image has unsupported encoding [%s]", rgb_msg->encoding.c_str());
+    RCLCPP_ERROR(logger_, "RGB image has unsupported encoding [%s]", rgb_image->encoding.c_str());
     return;
   }
-
   pub_point_cloud_->publish(*cloud_msg);
 }
 

@@ -16,7 +16,7 @@ def generate_launch_description():
         namespace='',
         package='rclcpp_components',
         executable='component_container',
-        prefix="xterm -hold -e",
+        #prefix='xterm -e gdb --args',
         composable_node_descriptions=[
             ComposableNode(package='astra_camera',
                            plugin='astra_camera::OBCameraNodeFactory',

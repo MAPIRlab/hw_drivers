@@ -38,6 +38,7 @@
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/exact_time.h>
 #include <message_filters/sync_policies/approximate_time.h>
+#include <message_filters/time_synchronizer.h>   
 #include <sensor_msgs/image_encodings.hpp>
 #include <sensor_msgs/point_cloud2_iterator.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
@@ -52,25 +53,25 @@
 
 #include "depth_traits.h"
 #include "point_cloud_xyz.h"
+#include "astra_camera/DefineImageType.hpp"
 
 namespace astra_camera {
 
 namespace enc = sensor_msgs::image_encodings;
 
 class PointCloudXyzrgbNode : public rclcpp::Node {
+  using PointCloud2 = sensor_msgs::msg::PointCloud2;
+  using CameraInfo = sensor_msgs::msg::CameraInfo;
  public:
   explicit PointCloudXyzrgbNode(const rclcpp::NodeOptions& options);
-  void convertRgb(const sensor_msgs::msg::Image::ConstSharedPtr &rgb_msg,
+  void convertRgb(const sensor_msgs::msg::Image::ConstSharedPtr& rgb_msg,
                   sensor_msgs::msg::PointCloud2::SharedPtr &cloud_msg, int red_offset,
                   int green_offset, int blue_offset, int color_step);
 
  private:
-  using PointCloud2 = sensor_msgs::msg::PointCloud2;
-  using Image = sensor_msgs::msg::Image;
-  using CameraInfo = sensor_msgs::msg::CameraInfo;
 
   // Subscriptions
-  image_transport::SubscriberFilter sub_depth_, sub_rgb_;
+  message_filters::Subscriber<Image> sub_depth_, sub_rgb_;
   message_filters::Subscriber<CameraInfo> sub_info_;
   using SyncPolicy = message_filters::sync_policies::ApproximateTime<Image, Image, CameraInfo>;
   using ExactSyncPolicy = message_filters::sync_policies::ExactTime<Image, Image, CameraInfo>;

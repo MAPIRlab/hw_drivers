@@ -47,6 +47,7 @@
 #include "dynamic_params.h"
 #include "types.h"
 #include "ob_frame_listener.h"
+#include "DefineImageType.hpp"
 
 namespace astra_camera {
 class OBCameraNode {
@@ -214,8 +215,10 @@ class OBCameraNode {
   std::map<stream_index_pair, openni::VideoMode> stream_video_mode_;
   std::map<stream_index_pair, std::vector<openni::VideoMode>> supported_video_modes_;
   std::map<stream_index_pair, int> unit_step_size_;
-  std::map<stream_index_pair, rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr>
+  std::map<stream_index_pair, rclcpp::Publisher<Image>::SharedPtr>
       image_publishers_;
+  std::map<stream_index_pair, rclcpp::Publisher<CompressedImage>::SharedPtr>
+      compressed_image_publishers_;
   std::map<stream_index_pair, rclcpp::Publisher<sensor_msgs::msg::CameraInfo>::SharedPtr>
       camera_info_publishers_;
 
