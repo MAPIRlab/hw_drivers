@@ -275,7 +275,7 @@ class Ros2NMEADriver(Node):
 
     """Helper method for getting the frame_id with the correct TF prefix"""
     def get_frame_id(self):
-        frame_id = self.declare_parameter('frame_id', 'gps').value
+        frame_id = self.declare_parameter('frame_id', 'gps_frame').value
         prefix = self.declare_parameter('tf_prefix', '').value
         if len(prefix):
             return '%s/%s' % (prefix, frame_id)

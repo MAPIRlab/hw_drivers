@@ -47,7 +47,7 @@ def main(args=None):
 
     serial_port = driver.declare_parameter('port', '/dev/ttyUSB0').value
     serial_baud = driver.declare_parameter('baud', 4800).value
-
+    serial_frame = driver.declare_parameter('frame_id','gps_frame')
     # Get the frame_id
     frame_id = driver.get_frame_id()
 
