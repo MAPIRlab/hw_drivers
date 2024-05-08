@@ -6,6 +6,7 @@ Tested with ROS2-Humble (Ubuntu 22.04)
 ## Dependencies
     sudo apt install ros-humble-magic-enum 
     sudo apt install libuvc-dev
+    sudo apt install libgoogle-glog-dev
 
 ## UDEV rules
 In order for the launch files to work, udev rules must be in place and working.
