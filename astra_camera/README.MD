@@ -4,7 +4,8 @@ ROS2 Wrapper for Orbbec RGB-D Astra Cameras.
 Tested with ROS2-Humble (Ubuntu 22.04)
 
 ## Dependencies
-    sudo apt install ros-humble-magic-enum 
+    sudo apt install ros-humble-magic-enum
+    sudo apt install ros-humble-nlohmann-json-schema-validator-vendor
     sudo apt install libuvc-dev
     sudo apt install libgoogle-glog-dev
 
