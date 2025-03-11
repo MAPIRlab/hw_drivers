@@ -247,6 +247,9 @@ int main(int argc, char** argv)
 
         verbose = node->declare_parameter<bool>("verbose", true);
 
+        bool overrideNeckHeight = node->declare_parameter<bool>("overrideNeckHeight", false);
+        float manualNeckHeight = node->declare_parameter<float>("manualNeckHeight", 1.0);
+
         // Create Giraff-Controller (access to AVR-serial port)
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "[Giraff_ros_driver] Creating AVR-Manager...");
         giraff = new GiraffManager(giraff_avr_port, controller_mode, max_lv, max_av, acc_lin, acc_ang, vgr, batt_tech, batt_capacity, batt_serial);
@@ -397,7 +400,12 @@ int main(int argc, char** argv)
                 // tf_broadcaster->sendTransform(camera_trans);
             }
 
-            float altura_en_metros = (116 + 0.025 * giraff->getStalk()) * 0.01;
+            float altura_en_metros;
+            if(overrideNeckHeight)
+                altura_en_metros = manualNeckHeight;
+            else
+                altura_en_metros = (116 + 0.025 * giraff->getStalk()) * 0.01;
+            
             float tilt_en_rad = giraff->getTilt() - tilt_bias;
 
             // Publish TF (\base_link -> \stalk)

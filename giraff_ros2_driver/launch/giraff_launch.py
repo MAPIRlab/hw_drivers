@@ -38,7 +38,10 @@ def generate_launch_description():
         {'tilt_bias':0.6},
         {'battery_technology':'NIMH'},
         {'battery_design_capacity':4.4},
-        {'battery_serial_number':'Giraff_battery'}
+        {'battery_serial_number':'Giraff_battery'},
+
+        {'overrideNeckHeight' : True},
+        {'manualNeckHeight' : 0.9} # meters
         ]
     )
 
