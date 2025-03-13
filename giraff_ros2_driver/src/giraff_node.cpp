@@ -26,7 +26,7 @@
 #include <tf2_ros/transform_broadcaster.h>
 
 #include <tf2/LinearMath/Quaternion.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 
 #include <nav_msgs/msg/odometry.hpp>
@@ -38,6 +38,7 @@
 #include <std_msgs/msg/bool.hpp>
 
 #include "giraff_ros2_driver/giraff_manager.h"
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <boost/bind.hpp>
 #include <limits>
 
@@ -185,13 +186,13 @@ int main(int argc, char** argv)
         // Read Parameters
         //----------------
         std::string giraff_avr_port;
-        bool publish_odometry_over_tf;
+        bool publish_odometry;
         std::string odom_topic;
         double freq;
 
         giraff_avr_port = node->declare_parameter<std::string>("giraff_avr_port", "/dev/ttyS1");
 
-        publish_odometry_over_tf = node->declare_parameter<bool>("publish_odometry_over_tf", false);
+        publish_odometry = node->declare_parameter<bool>("publish_odometry", false);
 
         publish_other_tf = node->declare_parameter<bool>("publish_other_tf", false);
 
@@ -329,38 +330,45 @@ int main(int argc, char** argv)
             }
 
             // Publish the odometry message over ROS topic
-            nav_msgs::msg::Odometry odom;
-            odom.header.stamp = current_time;
-            odom.header.frame_id = odom_frame_id;
-            odom.pose.pose.position.x = pos_x;
-            odom.pose.pose.position.y = pos_y;
-            odom.pose.pose.position.z = 0.0;
-            tf2::Quaternion q;
-            q.setRPY(0, 0, yaw);
-            odom.pose.pose.orientation = toMsg(q);
-            // set the velocity
-            odom.child_frame_id = base_frame_id;
-            odom.twist.twist.linear.x = lin_vel;
-            odom.twist.twist.linear.y = 0.0;
-            odom.twist.twist.angular.z = ang_vel;
-            // publish the odometry
-            odom_pub->publish(odom);
-
-            if (publish_odometry_over_tf)
+            
+            if (publish_odometry)
             {
+                // odom  topic
+                {
+                    nav_msgs::msg::Odometry odom;
+                    odom.header.stamp = current_time;
+                    odom.header.frame_id = odom_frame_id;
+                    odom.pose.pose.position.x = pos_x;
+                    odom.pose.pose.position.y = pos_y;
+                    odom.pose.pose.position.z = 0.0;
+                    tf2::Quaternion q;
+                    q.setRPY(0, 0, yaw);
+                    odom.pose.pose.orientation = toMsg(q);
+                    // set the velocity
+                    odom.child_frame_id = base_frame_id;
+                    odom.twist.twist.linear.x = lin_vel;
+                    odom.twist.twist.linear.y = 0.0;
+                    odom.twist.twist.angular.z = ang_vel;
+                    // publish the odometry
+                    odom_pub->publish(odom);
+                }
+
                 // Publish TF (\odom -> \base_footprint)
-                geometry_msgs::msg::TransformStamped odom_trans;
-                odom_trans.header.stamp = current_time;
-                odom_trans.header.frame_id = odom_frame_id;
-                odom_trans.child_frame_id = base_footprint_frame_id;
-                odom_trans.transform.translation.x = pos_x;
-                odom_trans.transform.translation.y = pos_y;
-                odom_trans.transform.translation.z = 0.0;
-                tf2::Quaternion q;
-                q.setRPY(0, 0, yaw);
-                odom_trans.transform.rotation = toMsg(q);
-                tf_broadcaster->sendTransform(odom_trans);
+                {
+                    geometry_msgs::msg::TransformStamped odom_trans;
+                    odom_trans.header.stamp = current_time;
+                    odom_trans.header.frame_id = odom_frame_id;
+                    odom_trans.child_frame_id = base_footprint_frame_id;
+                    odom_trans.transform.translation.x = pos_x;
+                    odom_trans.transform.translation.y = pos_y;
+                    odom_trans.transform.translation.z = 0.0;
+                    tf2::Quaternion q;
+                    q.setRPY(0, 0, yaw);
+                    odom_trans.transform.rotation = toMsg(q);
+                    tf_broadcaster->sendTransform(odom_trans);
+                }
             }
+
             if (publish_other_tf)
             {
                 // Publish TF (\base_footprint -> \base_link)
@@ -371,6 +379,7 @@ int main(int argc, char** argv)
                 footprint_trans.transform.translation.x = 0.0;
                 footprint_trans.transform.translation.y = 0.0;
                 footprint_trans.transform.translation.z = 0.2;
+                tf2::Quaternion q;
                 q.setRPY(0, 0, 0);
                 footprint_trans.transform.rotation = toMsg(q);
                 tf_broadcaster->sendTransform(footprint_trans);
@@ -409,29 +418,35 @@ int main(int argc, char** argv)
             float tilt_en_rad = giraff->getTilt() - tilt_bias;
 
             // Publish TF (\base_link -> \stalk)
-            geometry_msgs::msg::TransformStamped stalk_trans;
-            stalk_trans.header.stamp = current_time;
-            stalk_trans.header.frame_id = base_frame_id;
-            stalk_trans.child_frame_id = stalk_frame_id;
-            stalk_trans.transform.translation.x = 0.0;
-            stalk_trans.transform.translation.y = 0.0;
-            stalk_trans.transform.translation.z = altura_en_metros;
-            q.setRPY(0, 0, 0);
-            stalk_trans.transform.rotation = toMsg(q);
-            tf_broadcaster->sendTransform(stalk_trans);
+            {
+                geometry_msgs::msg::TransformStamped stalk_trans;
+                stalk_trans.header.stamp = current_time;
+                stalk_trans.header.frame_id = base_frame_id;
+                stalk_trans.child_frame_id = stalk_frame_id;
+                stalk_trans.transform.translation.x = 0.0;
+                stalk_trans.transform.translation.y = 0.0;
+                stalk_trans.transform.translation.z = altura_en_metros;
+                tf2::Quaternion q;
+                q.setRPY(0, 0, 0);
+                stalk_trans.transform.rotation = toMsg(q);
+                tf_broadcaster->sendTransform(stalk_trans);
+            }
 
             // Publish TF (\stalk -> \giraff_head)
-            geometry_msgs::msg::TransformStamped head_trans;
-            head_trans.header.stamp = current_time;
-            head_trans.header.frame_id = stalk_frame_id;
-            head_trans.child_frame_id = head_frame_id;
-            head_trans.transform.translation.x = 0.0;
-            head_trans.transform.translation.y = 0.0;
-            head_trans.transform.translation.z = 0.0;
-
-            q.setRPY(0.0, -tilt_en_rad, 0.0);
-            head_trans.transform.rotation = toMsg(q);
-            tf_broadcaster->sendTransform(head_trans);
+            {
+                geometry_msgs::msg::TransformStamped head_trans;
+                head_trans.header.stamp = current_time;
+                head_trans.header.frame_id = stalk_frame_id;
+                head_trans.child_frame_id = head_frame_id;
+                head_trans.transform.translation.x = 0.0;
+                head_trans.transform.translation.y = 0.0;
+                head_trans.transform.translation.z = 0.0;
+                
+                tf2::Quaternion q;
+                q.setRPY(0.0, -tilt_en_rad, 0.0);
+                head_trans.transform.rotation = toMsg(q);
+                tf_broadcaster->sendTransform(head_trans);
+            }
 
             // Publish the state of the batteries
             sensor_msgs::msg::BatteryState battmsg;
@@ -516,7 +531,7 @@ int main(int argc, char** argv)
             rclcpp::spin_some(node); // check subscriptions!
         }
     }
-    catch (GiraffManagerException e)
+    catch (const GiraffManagerException& e)
     {
         RCLCPP_WARN(rclcpp::get_logger("rclcpp"), "%s", e.what());
         if (giraff != NULL)

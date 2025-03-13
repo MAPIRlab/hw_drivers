@@ -16,21 +16,21 @@ def generate_launch_description():
         namespace='',
         package='rclcpp_components',
         executable='component_container',
-        #prefix='xterm -e gdb --args',
+        # prefix='xterm -e gdb --args',
         composable_node_descriptions=[
             ComposableNode(package='astra_camera',
                            plugin='astra_camera::OBCameraNodeFactory',
                            name='camera',
                            namespace='camera',
                            parameters=[config_params]),
-            ComposableNode(package='astra_camera',
-                           plugin='astra_camera::PointCloudXyzNode',
-                           namespace='camera',
-                           name='point_cloud_xyz'),
-            ComposableNode(package='astra_camera',
-                           plugin='astra_camera::PointCloudXyzrgbNode',
-                           namespace='camera',
-                           name='point_cloud_xyzrgb')
+            # ComposableNode(package='astra_camera',
+            #                plugin='astra_camera::PointCloudXyzNode',
+            #                namespace='camera',
+            #                name='point_cloud_xyz'),
+            # ComposableNode(package='astra_camera',
+            #                plugin='astra_camera::PointCloudXyzrgbNode',
+            #                namespace='camera',
+            #                name='point_cloud_xyzrgb')
         ],
         output='screen')
     return LaunchDescription([container])

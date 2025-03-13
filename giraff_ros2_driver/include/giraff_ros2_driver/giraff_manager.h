@@ -318,8 +318,8 @@ lin_acceleration(acc_lin),
 ang_acceleration(acc_ang),
 virtualGR(vgr),
 batt_technology(battery_technology),
-batt_design_capacity(battery_design_capacity),
-batt_serial_number(battery_serial_number)
+batt_serial_number(battery_serial_number),
+batt_design_capacity(battery_design_capacity)
 {
     // Keep state updated
     state.is_stopped = true;

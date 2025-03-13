@@ -14,7 +14,7 @@ def generate_launch_description():
         output='screen',
         parameters=[
         {'giraff_avr_port':'/dev/ttyS1'},
-        {'publish_odometry_over_tf':parse_substitution('$(var publish_odom)')},
+        {'publish_odometry':parse_substitution('$(var publish_odom)')},
         {'publish_other_tf':True},
         {'odom_topic':'odom'},
         {'freq': 100.0},

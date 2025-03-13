@@ -150,9 +150,9 @@ class GiraffAVRMonitor
 {
 public:
     GiraffAVRMonitor() {}
-    virtual ~GiraffAVRMonitor() {}
-    virtual void notifyCommand(const std::string& command) {}
-    virtual void notifyResponse(const std::string& response) {}
+    ~GiraffAVRMonitor() {}
+    void notifyCommand(const std::string& command) {RCLCPP_INFO(rclcpp::get_logger("giraff_driver"), "Command: '%s", command.c_str());}
+    void notifyResponse(const std::string& response) {RCLCPP_INFO(rclcpp::get_logger("giraff_driver"), "Response: '%s", response.c_str());}
 } defaultMonitor;
 
 /*********************************************************************************/
@@ -853,8 +853,7 @@ inline bool GiraffAVR::writeCommand(const std::string& command, float& response)
 inline bool GiraffAVR::setTwm(float vg, float cdp, float vgr, float v, float p)
 {
     char buffer[50];
-    int n;
-    n = sprintf(buffer, "set twm %.2f %.2f %.2f %.2f %.2f 0\r", vg, cdp, vgr, v, p);
+    sprintf(buffer, "set twm %.2f %.2f %.2f %.2f %.2f 0\r", vg, cdp, vgr, v, p);
 
     std::string command(buffer);
     std::string response;
